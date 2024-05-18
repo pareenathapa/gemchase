@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gemchase/core/constants/color_constants.dart';
+import 'package:gemchase/core/utils/asset_provider.dart';
 import 'package:gemchase/core/utils/util.dart';
 import 'package:gemchase/screen/forget_password.dart';
 import 'package:gemchase/screen/homepage.dart';
@@ -42,6 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Image.asset(Assets.images.Logo),
                 // const LoginHeader(),
                 Container(
                   margin: EdgeInsets.symmetric(
@@ -58,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         textColor: Colors.black,
                       ),
                       ResponsiveText(
-                        "Login to your account and make enhance you memory.",
+                        "Login to your account and enhance your memory.",
                         fontSize: 12,
                         textColor: Color(0xFF454C53),
                         fontWeight: FontWeight.w400,
@@ -110,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: InputDecoration(
                           hintText: "",
                           filled: true,
-                          fillColor: Color(0xFFFFFFF),
+                          fillColor: Color.fromARGB(15, 208, 130, 130),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -176,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size(width * 2, height * 0.07),
-                        backgroundColor: Color(0xFF614E7E),
+                        backgroundColor: Color.fromARGB(255, 77, 143, 177),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -193,7 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => MyHomePage(),
+                              builder: (context) => const MyHomePage(),
                             ),
                           );
                         }
@@ -227,7 +229,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           "Register",
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
-                          textColor: Color(0xFF410D59),
+                          textColor: Color.fromARGB(255, 77, 143, 177),
                           textAlign: TextAlign.center,
                         ),
                       ),

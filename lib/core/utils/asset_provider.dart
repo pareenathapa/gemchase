@@ -3,7 +3,7 @@ import '../constants/constant_path.dart';
 class _AssetsImagesGen {
   const _AssetsImagesGen();
 
-  String get Logo => '$kImagesPath/Logo.png';
+  String get Logo => '$kImagesPath/Logo1.png';
  
 }
 

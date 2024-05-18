@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gemchase/core/constants/color_constants.dart';
+import 'package:gemchase/core/utils/asset_provider.dart';
 import 'package:gemchase/core/utils/util.dart';
 import 'package:gemchase/screen/login_screen.dart';
 import 'package:gemchase/widgets/responsive_text.dart';
@@ -30,35 +31,8 @@ class _SignupScreenState extends State<SignupScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Container(
-                //   margin: EdgeInsets.symmetric(
-                //       horizontal: kHorizontalMargin, vertical: kVerticalMargin),
-                //   child: Column(
-                //     children: [
-                //       Center(
-                //         child: Image.asset(
-                //           Assets.images.Logo,
-                //           height: height * 0.2,
-                //           width: height,
-                //         ),
-                //       ),
-                //       ResponsiveText(
-                //         "WalkWise",
-                //         fontSize: 32,
-                //         fontFamily: 'SF Pro Rounded',
-                //         fontWeight: FontWeight.w400,
-                //         textColor: Color(0xFF614E7E),
-                //       ),
-                //       ResponsiveText(
-                //         "",
-                //         fontSize: 20,
-                //         fontFamily: 'SF Pro',
-                //         fontWeight: FontWeight.w400,
-                //         textColor: Color(0xFF2F676A),
-                //       ),
-                //     ],
-                //   ),
-                // ),
+                Image.asset(Assets.images.Logo),
+                
                 Container(
                   margin: EdgeInsets.symmetric(
                     horizontal: kHorizontalMargin,
@@ -75,7 +49,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         textColor: Colors.black,
                       ),
                       ResponsiveText(
-                        "Create you acoount and experiecnethe app.",
+                        "Create you acoount and experience the app.",
                         fontSize: 12,
                         textColor: Color(0xFF454C53),
                         fontWeight: FontWeight.w400,
@@ -208,7 +182,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         decoration: InputDecoration(
                           hintText: "",
                           filled: true,
-                          fillColor: Color(0xFFFFFFF),
+                          fillColor: Color.fromARGB(15, 111, 159, 192),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8)),
                           suffixIcon: IconButton(
@@ -240,7 +214,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               fixedSize: Size(width * 2, height * 0.07),
-                              backgroundColor: Color(0xFF614E7E),
+                              backgroundColor:  Color.fromARGB(255, 77, 143, 177),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -289,7 +263,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 "Login",
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
-                                textColor: Color(0xFF410D59),
+                                textColor:  Color.fromARGB(255, 77, 143, 177),
                                 textAlign: TextAlign.center,
                               ),
                             ),
