@@ -19,7 +19,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               Container(
                 height: 90,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.blue,
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(16),
@@ -32,7 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Image.asset(Assets.images.Logo),
-                      Icon(Icons.search, size: 28, color: Color(0xffFFFFFF)),
+                      const Icon(Icons.search, size: 28, color: Color(0xffFFFFFF)),
                     ],
                   ),
                 ),
@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                 height: 150,
                 width: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.amber
                 ),
                 child: CachedNetworkImage(
@@ -52,8 +52,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.all(8.0),
                 child: GridView.builder(
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 8,
                     crossAxisSpacing: 8,
