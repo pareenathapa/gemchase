@@ -49,7 +49,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         textColor: Colors.black,
                       ),
                       ResponsiveText(
-                        "Create you acoount and experience the app.",
+                        "Create you account and experience the app.",
                         fontSize: 12,
                         textColor: Color(0xFF454C53),
                         fontWeight: FontWeight.w400,
