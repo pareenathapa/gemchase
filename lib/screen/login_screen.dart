@@ -35,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: Color(kBackground),
+      backgroundColor: const Color(kBackground),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Form(
@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   margin: EdgeInsets.symmetric(
                     horizontal: kHorizontalMargin,
                   ),
-                  child: Column(
+                  child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ResponsiveText(
@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ResponsiveText(
+                      const ResponsiveText(
                         'Email',
                         fontSize: 18,
                         fontWeight: FontWeight.w400,
@@ -86,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: InputDecoration(
                           hintText: "someone@gmail.com",
                           filled: true,
-                          fillColor: Color(0xFFFFFFF),
+                          fillColor: const Color(0xFFFFFFF),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -102,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                       ),
                       SizedBox(height: kHorizontalMargin),
-                      ResponsiveText(
+                      const ResponsiveText(
                         'Password',
                         fontSize: 18,
                         fontWeight: FontWeight.w400,
@@ -112,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: InputDecoration(
                           hintText: "",
                           filled: true,
-                          fillColor: Color.fromARGB(15, 208, 130, 130),
+                          fillColor: const Color.fromARGB(15, 208, 130, 130),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -155,11 +155,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ForgetPassword(),
+                              builder: (context) => const ForgetPassword(),
                             ),
                           );
                         },
-                        child: ResponsiveText(
+                        child: const ResponsiveText(
                           "Forget Password?",
                           fontSize: 14,
                           textColor: Color(0xFF0A0C0E),
@@ -178,12 +178,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         fixedSize: Size(width * 2, height * 0.07),
-                        backgroundColor: Color.fromARGB(255, 77, 143, 177),
+                        backgroundColor: const Color.fromARGB(255, 77, 143, 177),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: ResponsiveText(
+                      child: const ResponsiveText(
                         "LOGIN",
                         fontSize: 24,
                         fontFamily: 'Times',
@@ -208,7 +208,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ResponsiveText(
+                      const ResponsiveText(
                         "Don’t have an account?",
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
@@ -221,11 +221,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => SignupScreen(),
+                              builder: (context) => const SignupScreen(),
                             ),
                           );
                         },
-                        child: ResponsiveText(
+                        child: const ResponsiveText(
                           "Register",
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
