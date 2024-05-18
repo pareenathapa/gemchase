@@ -23,7 +23,7 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(kBackground),
+      backgroundColor: const Color(kBackground),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Form(
@@ -37,7 +37,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   margin: EdgeInsets.symmetric(
                     horizontal: kHorizontalMargin,
                   ),
-                  child: Column(
+                  child: const Column(
                     // mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -63,7 +63,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ResponsiveText(
+                      const ResponsiveText(
                         'Name',
                         fontSize: 18,
                         fontWeight: FontWeight.w400,
@@ -72,7 +72,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         decoration: InputDecoration(
                           hintText: "Test User 01",
                           filled: true,
-                          fillColor: Color(0xFFFFFFF),
+                          fillColor: const Color(0xFFFFFFF),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8)),
                         ),
@@ -86,7 +86,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(
                         height: kHorizontalMargin,
                       ),
-                      ResponsiveText(
+                      const ResponsiveText(
                         'Phone No.',
                         fontSize: 18,
                         fontWeight: FontWeight.w400,
@@ -95,7 +95,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         decoration: InputDecoration(
                           hintText: "9800000000",
                           filled: true,
-                          fillColor: Color(0xFFFFFFF),
+                          fillColor: const Color(0xFFFFFFF),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8)),
                         ),
@@ -112,7 +112,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(
                         height: kHorizontalMargin,
                       ),
-                      ResponsiveText(
+                      const ResponsiveText(
                         'Email',
                         fontSize: 18,
                         fontWeight: FontWeight.w400,
@@ -121,7 +121,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         decoration: InputDecoration(
                           hintText: "someone@gmail.com",
                           filled: true,
-                          fillColor: Color(0xFFFFFFF),
+                          fillColor: const Color(0xFFFFFFF),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8)),
                         ),
@@ -138,7 +138,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(
                         height: kHorizontalMargin,
                       ),
-                      ResponsiveText(
+                      const ResponsiveText(
                         'Password',
                         fontSize: 18,
                         fontWeight: FontWeight.w400,
@@ -147,7 +147,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         decoration: InputDecoration(
                           hintText: "",
                           filled: true,
-                          fillColor: Color(0xFFFFFFF),
+                          fillColor: const Color(0xFFFFFFF),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8)),
                           suffixIcon: IconButton(
@@ -173,7 +173,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(
                         height: kHorizontalMargin,
                       ),
-                      ResponsiveText(
+                      const ResponsiveText(
                         'Confirm Password',
                         fontSize: 18,
                         fontWeight: FontWeight.w400,
@@ -182,7 +182,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         decoration: InputDecoration(
                           hintText: "",
                           filled: true,
-                          fillColor: Color.fromARGB(15, 111, 159, 192),
+                          fillColor: const Color.fromARGB(15, 111, 159, 192),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8)),
                           suffixIcon: IconButton(
@@ -214,12 +214,12 @@ class _SignupScreenState extends State<SignupScreen> {
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               fixedSize: Size(width * 2, height * 0.07),
-                              backgroundColor:  Color.fromARGB(255, 77, 143, 177),
+                              backgroundColor:  const Color.fromARGB(255, 77, 143, 177),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
                             ),
-                            child: ResponsiveText(
+                            child: const ResponsiveText(
                               "REGISTER",
                               fontSize: 24,
                               fontFamily: 'Times',
@@ -241,7 +241,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            ResponsiveText(
+                            const ResponsiveText(
                               "Already have an account?",
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
@@ -256,10 +256,10 @@ class _SignupScreenState extends State<SignupScreen> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => LoginScreen()),
+                                      builder: (context) => const LoginScreen()),
                                 );
                               },
-                              child: ResponsiveText(
+                              child: const ResponsiveText(
                                 "Login",
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500,
