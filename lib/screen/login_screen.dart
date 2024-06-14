@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:gemchase/core/constants/color_constants.dart';
-import 'package:gemchase/core/utils/asset_provider.dart';
-import 'package:gemchase/core/utils/util.dart';
-import 'package:gemchase/screen/forget_password.dart';
-import 'package:gemchase/screen/homepage.dart';
-import 'package:gemchase/screen/register_screen.dart';
-import 'package:gemchase/widgets/responsive_text.dart';
+import 'package:student_management_starter/core/utils/asset_provider.dart';
+import 'package:student_management_starter/core/utils/util.dart';
+import 'package:student_management_starter/screen/forget_password.dart';
+import 'package:student_management_starter/screen/homepage.dart';
+import 'package:student_management_starter/screen/register_screen.dart';
+
+import '../core/constants/color_constants.dart';
 
 
 class LoginScreen extends StatefulWidget {
@@ -52,18 +52,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ResponsiveText(
+                      Text(
                         "LOGIN",
-                        fontSize: 24,
+                        style: TextStyle(fontSize: 24,
                         fontFamily: 'Times',
                         fontWeight: FontWeight.w400,
-                        textColor: Colors.black,
+                        color: Colors.black,),
                       ),
-                      ResponsiveText(
+                      Text(
                         "Login to your account and enhance your memory.",
-                        fontSize: 12,
-                        textColor: Color(0xFF454C53),
-                        fontWeight: FontWeight.w400,
+                        style: TextStyle(fontSize: 12,
+                        color: Color(0xFF454C53),
+                        fontWeight: FontWeight.w400,),
                       ),
                     ],
                   ),
@@ -76,10 +76,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const ResponsiveText(
+                      const Text(
                         'Email',
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
+                        style: TextStyle(fontSize: 18,
+                        fontWeight: FontWeight.w400,),
                       ),
                       TextFormField(
                         controller: _emailController,
@@ -102,10 +102,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                       ),
                       SizedBox(height: kHorizontalMargin),
-                      const ResponsiveText(
+                      const Text(
                         'Password',
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
+                        style: TextStyle(fontSize: 18,
+                        fontWeight: FontWeight.w400,),
                       ),
                       TextFormField(
                         controller: _passwordController,
@@ -159,11 +159,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           );
                         },
-                        child: const ResponsiveText(
+                        child: const Text(
                           "Forget Password?",
-                          fontSize: 14,
-                          textColor: Color(0xFF0A0C0E),
-                          fontWeight: FontWeight.w500,
+                         style: TextStyle( fontSize: 14,
+                          color: Color(0xFF0A0C0E),
+                          fontWeight: FontWeight.w500,),
                         ),
                       ),
                     ],
@@ -183,12 +183,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: const ResponsiveText(
+                      child: const Text(
                         "LOGIN",
-                        fontSize: 24,
+                        style: TextStyle(fontSize: 24,
                         fontFamily: 'Times',
                         fontWeight: FontWeight.w400,
-                        textColor: Color(0xFFFCFCFC),
+                        color: Color(0xFFFCFCFC),),
                       ),
                       onPressed: () {
                         if (_formKey.currentState?.validate() ?? false) {
@@ -208,12 +208,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const ResponsiveText(
+                      const Text(
                         "Don’t have an account?",
-                        fontSize: 12,
+                        style: TextStyle(fontSize: 12,
                         fontWeight: FontWeight.w400,
-                        textColor: Color(0xFF0A0C0E),
-                        textAlign: TextAlign.center,
+                        color: Color(0xFF0A0C0E),),
                       ),
                       SizedBox(width: width * 0.02),
                       GestureDetector(
@@ -225,12 +224,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           );
                         },
-                        child: const ResponsiveText(
+                        child: const Text(
                           "Register",
-                          fontSize: 12,
+                          style: TextStyle(fontSize: 12,
                           fontWeight: FontWeight.w500,
-                          textColor: Color.fromARGB(255, 77, 143, 177),
-                          textAlign: TextAlign.center,
+                          color: Color.fromARGB(255, 77, 143, 177),),
                         ),
                       ),
                     ],

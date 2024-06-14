@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gemchase/core/constants/color_constants.dart';
-import 'package:gemchase/core/utils/asset_provider.dart';
-import 'package:gemchase/core/utils/util.dart';
-import 'package:gemchase/screen/login_screen.dart';
-import 'package:gemchase/widgets/responsive_text.dart';
+import 'package:student_management_starter/core/constants/color_constants.dart';
+import 'package:student_management_starter/core/utils/asset_provider.dart';
+import 'package:student_management_starter/screen/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -30,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 horizontal: kHorizontalMargin, vertical: kVerticalMargin),
             child: Column(children: [
               Image.asset(Assets.images.Logo),
-              const ResponsiveText('The art of capturing beauty and preserving it for eternity'),
+              const Text('The art of capturing beauty and preserving it for eternity'),
               const SizedBox(height: kVerticalMargin*9,),
               Center(
                 child: Container(
@@ -43,12 +41,14 @@ class _SplashScreenState extends State<SplashScreen> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    child: const ResponsiveText(
+                    child: const Text(
                       "Get Started",
-                      fontSize: 24,
+                      style: TextStyle(
+                        fontSize: 24,
                       fontFamily: 'Times',
                       fontWeight: FontWeight.w400,
-                      textColor: Color(0xFFFCFCFC),
+                      color: Color(0xFFFCFCFC),
+                      ),
                     ),
                     onPressed: () {
                       {

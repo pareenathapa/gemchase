@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gemchase/core/constants/color_constants.dart';
-import 'package:gemchase/core/utils/util.dart';
-import 'package:gemchase/widgets/responsive_text.dart';
+import 'package:student_management_starter/core/constants/color_constants.dart';
+
+import '../core/utils/util.dart';
 
 
 
@@ -34,16 +34,16 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ResponsiveText(
+                Text(
                   "FORGET PASSWORD",
-                  fontFamily: 'Times',
+                 style: TextStyle( fontFamily: 'Times',
                   fontSize: 24,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w500,),
                 ),
-                ResponsiveText(
+                Text(
                   'ForgetPassword',
-                  fontSize: 12,
-                  textColor: Color.fromARGB(255, 116, 116, 116),
+                  style: TextStyle(fontSize: 12,
+                  color: Color.fromARGB(255, 116, 116, 116),),
                 ),
               ],
             ),
@@ -77,12 +77,12 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               onPressed: () {
                 // Add your onPressed functionality here
               },
-              child: const ResponsiveText(
+              child: const Text(
                 "SUBMIT",
-                fontSize: 24,
+                style: TextStyle(fontSize: 24,
                 fontWeight: FontWeight.w400,
                 fontFamily: 'Times',
-                textColor: Color(0xffFCFCFC),
+                color: Color(0xffFCFCFC),),
               ),
             ),
           ),

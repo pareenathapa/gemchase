@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gemchase/core/constants/color_constants.dart';
-import 'package:gemchase/core/utils/asset_provider.dart';
-import 'package:gemchase/core/utils/util.dart';
-import 'package:gemchase/screen/login_screen.dart';
-import 'package:gemchase/widgets/responsive_text.dart';
+import 'package:student_management_starter/core/constants/color_constants.dart';
+import 'package:student_management_starter/core/utils/asset_provider.dart';
+import 'package:student_management_starter/core/utils/util.dart';
+import 'package:student_management_starter/screen/login_screen.dart';
 
 
 
@@ -41,18 +40,22 @@ class _SignupScreenState extends State<SignupScreen> {
                     // mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ResponsiveText(
+                      Text(
                         "Register",
-                        fontSize: 24,
+                        style: TextStyle(
+                           fontSize: 24,
                         fontFamily: 'Times',
                         fontWeight: FontWeight.w400,
-                        textColor: Colors.black,
+                        color: Colors.black,
+                        )
                       ),
-                      ResponsiveText(
+                      Text(
                         "Create you account and experience the app.",
-                        fontSize: 12,
-                        textColor: Color(0xFF454C53),
+                        style: TextStyle(
+                          fontSize: 12,
+                        color: Color(0xFF454C53),
                         fontWeight: FontWeight.w400,
+                        ),
                       )
                     ],
                   ),
@@ -63,10 +66,12 @@ class _SignupScreenState extends State<SignupScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const ResponsiveText(
+                      const Text(
                         'Name',
-                        fontSize: 18,
+                        style: TextStyle(
+                          fontSize: 18,
                         fontWeight: FontWeight.w400,
+                        ),
                       ),
                       TextFormField(
                         decoration: InputDecoration(
@@ -86,10 +91,11 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(
                         height: kHorizontalMargin,
                       ),
-                      const ResponsiveText(
+                      const Text(
                         'Phone No.',
-                        fontSize: 18,
+                        style: TextStyle(fontSize: 18,
                         fontWeight: FontWeight.w400,
+                        ),
                       ),
                       TextFormField(
                         decoration: InputDecoration(
@@ -112,10 +118,12 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(
                         height: kHorizontalMargin,
                       ),
-                      const ResponsiveText(
+                      const Text(
                         'Email',
-                        fontSize: 18,
+                        style: TextStyle(
+                          fontSize: 18,
                         fontWeight: FontWeight.w400,
+                        ),
                       ),
                       TextFormField(
                         decoration: InputDecoration(
@@ -138,10 +146,10 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(
                         height: kHorizontalMargin,
                       ),
-                      const ResponsiveText(
+                      const Text(
                         'Password',
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
+                        style: TextStyle(fontSize: 18,
+                        fontWeight: FontWeight.w400,),
                       ),
                       TextFormField(
                         decoration: InputDecoration(
@@ -173,10 +181,10 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(
                         height: kHorizontalMargin,
                       ),
-                      const ResponsiveText(
+                      const Text(
                         'Confirm Password',
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
+                        style: TextStyle(fontSize: 18,
+                        fontWeight: FontWeight.w400,)
                       ),
                       TextFormField(
                         decoration: InputDecoration(
@@ -219,12 +227,15 @@ class _SignupScreenState extends State<SignupScreen> {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                             ),
-                            child: const ResponsiveText(
+                            child: const Text(
                               "REGISTER",
-                              fontSize: 24,
+                              style: TextStyle(
+                                fontSize: 24,
                               fontFamily: 'Times',
                               fontWeight: FontWeight.w400,
-                              textColor: Color(0xFFFCFCFC),
+                              color: Color(0xFFFCFCFC),
+
+                              ),
                             ),
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
@@ -241,12 +252,15 @@ class _SignupScreenState extends State<SignupScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const ResponsiveText(
-                              "Already have an account?",
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              textColor: Color(0xFF0A0C0E),
-                              textAlign: TextAlign.center,
+                            Center(
+                              child: const Text(
+                                "Already have an account?",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFF0A0C0E),
+                                ),
+                              ),
                             ),
                             SizedBox(
                               width: width * 0.02,
@@ -259,12 +273,12 @@ class _SignupScreenState extends State<SignupScreen> {
                                       builder: (context) => const LoginScreen()),
                                 );
                               },
-                              child: const ResponsiveText(
+                              child: const Text(
                                 "Login",
-                                fontSize: 12,
+                               style: TextStyle( fontSize: 12,
                                 fontWeight: FontWeight.w500,
-                                textColor:  Color.fromARGB(255, 77, 143, 177),
-                                textAlign: TextAlign.center,
+                                color:  Color.fromARGB(255, 77, 143, 177),),
+                                
                               ),
                             ),
                           ],
