@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:student_management_starter/core/constants/color_constants.dart';
 
+import '../core/constants/color_constants.dart';
 import '../core/utils/util.dart';
+
 
 
 

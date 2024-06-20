@@ -1,31 +1,13 @@
+import 'package:flutter/material.dart';
+
 import '../constants/constant_path.dart';
 
 class _AssetsImagesGen {
   const _AssetsImagesGen();
 
-  String get Logo => '$kImagesPath/Logo1.png';
-  String get AppleLogo => '$kImagesPath/apple.png';
-  String get GoogleLogo => '$kImagesPath/google.png';
-  String get FacebookLogo => '$kImagesPath/facebook.png';
-  String get EmergencyServices => '$kImagesPath/emergency .png';
-  String get Notes => '$kImagesPath/notes.png';
-  String get PhotoAlbums => '$kImagesPath/album.png';
-  String get DigitalCalendar => '$kImagesPath/digitalcalendars.png';
-  String get Woman => '$kImagesPath/woman.png';
-  String get Accessory => '$kImagesPath/accessory.png';
-  String get MensApperal => '$kImagesPath/men.jpeg';
-  String get MensGrooming => '$kImagesPath/menproducts.jpeg';
-  String get MensShoe => '$kImagesPath/mensho.jpg';
-  String get MensAccessory => '$kImagesPath/mensAccessories.jpg';
-  String get WomensApperal => '$kImagesPath/women.jpeg';
-  String get WomensAccrssory => '$kImagesPath/women_accoriees.jpeg';
-  String get WomensGrooming => '$kImagesPath/womenproduct.jpeg';
-  String get WomensTraditional => '$kImagesPath/langas.jpg';
-  String get WomensShoe => '$kImagesPath/womenshoe.jpg';
-  String get KidsApperal => '$kImagesPath/kids.jpeg';
-  String get kidsAccrssory => '$kImagesPath/kids_accessoey.jpg';
-  String get kidsToys => '$kImagesPath/toys.jpg';
-  String get kidsShoe => '$kImagesPath/kidsshoe.jpg';
+  String get Logo => '$kImagesPath/Logo.png';
+  String get Shoe => '$kImagesPath/shoe.png';
+  String get Banner => '$kImagesPath/banner.png';
 }
 
 class _AssetsSvgImagesGen {

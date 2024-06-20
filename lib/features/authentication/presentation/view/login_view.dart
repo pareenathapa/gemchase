@@ -1,23 +1,26 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../core/constants/color_constants.dart';
+import '../../../../core/utils/asset_provider.dart';
+import '../../../../core/utils/util.dart';
+import '../../../../screen/forget_password.dart';
+import '../../../../screen/homepage.dart';
+import 'register_view.dart';
 
 
-import '../core/constants/color_constants.dart';
-import '../core/utils/asset_provider.dart';
-import '../core/utils/util.dart';
-import 'forget_password.dart';
-import 'homepage.dart';
-import 'register_screen.dart';
 
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginView extends ConsumerStatefulWidget {
+  const LoginView({super.key});
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  ConsumerState<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginViewState extends ConsumerState<LoginView> {
   bool _isPasswordHidden = true;
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
@@ -30,11 +33,14 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
+  // final _usernameController = TextEditingController();
+  // final _passwordController = TextEditingController();
+  final _gap = const SizedBox(height: 8);
+  bool isObscure = true;
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-
     return Scaffold(
       backgroundColor: const Color(kBackground),
       body: SafeArea(
@@ -193,10 +199,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       onPressed: () {
                         if (_formKey.currentState?.validate() ?? false) {
-                          Navigator.push(
+                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const MyHomePage(),
+                              builder: (context) => MyHomePage(),
                             ),
                           );
                         }
@@ -221,7 +227,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const SignupScreen(),
+                              builder: (context) => const RegisterView(),
                             ),
                           );
                         },

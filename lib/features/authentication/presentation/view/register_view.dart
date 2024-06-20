@@ -1,26 +1,25 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../core/constants/color_constants.dart';
+import '../../../../core/utils/asset_provider.dart';
+import '../../../../core/utils/util.dart';
+import 'login_view.dart';
 
-
-import '../core/constants/color_constants.dart';
-import '../core/utils/asset_provider.dart';
-import '../core/utils/util.dart';
-import 'login_screen.dart';
-
-
-
-class SignupScreen extends StatefulWidget {
-  const SignupScreen({super.key});
+class RegisterView extends ConsumerStatefulWidget {
+  const RegisterView({super.key});
 
   @override
-  State<SignupScreen> createState() => _SignupScreenState();
+  ConsumerState<RegisterView> createState() => _RegisterViewState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
+class _RegisterViewState extends ConsumerState<RegisterView> {
+  // Check for camera permission
   final _formKey = GlobalKey<FormState>();
   bool _isPasswordHidden = true;
   bool _isCPasswordHidden = true;
   String? _password;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,8 +31,7 @@ class _SignupScreenState extends State<SignupScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(Assets.images.Logo),
-                
+                Image.asset(Assets.images.Logo,height:  150, width: 500,),
                 Container(
                   margin: EdgeInsets.symmetric(
                     horizontal: kHorizontalMargin,
@@ -254,8 +252,8 @@ class _SignupScreenState extends State<SignupScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Center(
-                              child: const Text(
+                            const Center(
+                              child: Text(
                                 "Already have an account?",
                                 style: TextStyle(
                                   fontSize: 12,
@@ -272,7 +270,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const LoginScreen()),
+                                      builder: (context) => const LoginView()),
                                 );
                               },
                               child: const Text(
