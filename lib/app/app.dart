@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../features/splash/presentation/view/splash_view.dart';
+import 'package:gemchase_clean_arch/features/splash/presentation/view/splash_view.dart';
+
 import 'navigator_key/navigator_key.dart';
 import 'themes/app_theme.dart';
 

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:gemchase_clean_arch/features/authentication/presentation/view_model/auth_view_model.dart';
 import '../../../../core/constants/color_constants.dart';
 import '../../../../core/utils/asset_provider.dart';
 import '../../../../core/utils/util.dart';
@@ -93,7 +93,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                         decoration: InputDecoration(
                           hintText: "someone@gmail.com",
                           filled: true,
-                          fillColor: const Color(0xFFFFFFF),
+                          fillColor: const Color(0x0fffffff),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -141,9 +141,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your password';
                           }
-                          if (value.length < 6) {
-                            return 'Password must be at least 6 characters long';
-                          }
+                        
                           return null;
                         },
                       ),
@@ -197,14 +195,14 @@ class _LoginViewState extends ConsumerState<LoginView> {
                         fontWeight: FontWeight.w400,
                         color: Color(0xFFFCFCFC),),
                       ),
-                      onPressed: () {
+                      onPressed: () async{
                         if (_formKey.currentState?.validate() ?? false) {
-                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => MyHomePage(),
-                            ),
-                          );
+                          await ref
+                              .read(authViewModelProvider.notifier)
+                              .login(
+                                _emailController.text,
+                                _passwordController.text,
+                              );
                         }
                       },
                     ),

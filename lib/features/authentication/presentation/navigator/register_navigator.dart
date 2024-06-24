@@ -1,6 +1,3 @@
-
-
-
 import '../../../../app/navigator/navigator.dart';
 import '../view/register_view.dart';
 

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../core/constants/color_constants.dart';
 import '../core/utils/util.dart';
-
-
 
 
 class ForgetPassword extends StatefulWidget {

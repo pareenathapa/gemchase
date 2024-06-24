@@ -1,10 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/constants/color_constants.dart';
-import '../../../../core/utils/asset_provider.dart';
-import '../../../../core/utils/util.dart';
+import 'package:gemchase_clean_arch/core/constants/color_constants.dart';
+import 'package:gemchase_clean_arch/core/utils/asset_provider.dart';
+import 'package:gemchase_clean_arch/core/utils/util.dart';
+import 'package:gemchase_clean_arch/features/authentication/domain/entity/auth_entity.dart';
+import 'package:gemchase_clean_arch/features/authentication/presentation/view_model/auth_view_model.dart';
+
 import 'login_view.dart';
 
 class RegisterView extends ConsumerStatefulWidget {
@@ -15,11 +16,15 @@ class RegisterView extends ConsumerStatefulWidget {
 }
 
 class _RegisterViewState extends ConsumerState<RegisterView> {
-  // Check for camera permission
   final _formKey = GlobalKey<FormState>();
   bool _isPasswordHidden = true;
   bool _isCPasswordHidden = true;
-  String? _password;
+  final _fnameController = TextEditingController(text: 'parina');
+  final _lnameController = TextEditingController(text: 'thapa');
+  final _emailController = TextEditingController(text: 'test@gmail.com');
+  final _passwordController = TextEditingController(text: 'test');
+  final _confirmPasswordController = TextEditingController(text: 'test');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,30 +36,27 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(Assets.images.Logo,height:  150, width: 500,),
+                Image.asset(Assets.images.Logo, height: 150, width: 500,),
                 Container(
-                  margin: EdgeInsets.symmetric(
-                    horizontal: kHorizontalMargin,
-                  ),
+                  margin: EdgeInsets.symmetric(horizontal: kHorizontalMargin,),
                   child: const Column(
-                    // mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         "Register",
                         style: TextStyle(
-                           fontSize: 24,
-                        fontFamily: 'Times',
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                        )
+                          fontSize: 24,
+                          fontFamily: 'Times',
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
                       ),
                       Text(
-                        "Create you account and experience the app.",
+                        "Create your account and experience the app.",
                         style: TextStyle(
                           fontSize: 12,
-                        color: Color(0xFF454C53),
-                        fontWeight: FontWeight.w400,
+                          color: Color(0xFF454C53),
+                          fontWeight: FontWeight.w400,
                         ),
                       )
                     ],
@@ -67,69 +69,63 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Name',
+                        'First Name',
                         style: TextStyle(
                           fontSize: 18,
-                        fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                       TextFormField(
+                        controller: _fnameController,
                         decoration: InputDecoration(
-                          hintText: "Test User 01",
+                          hintText: "Parina",
                           filled: true,
-                          fillColor: const Color(0xFFFFFFF),
+                          fillColor: const Color(0x0fffffff),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8)),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your name';
+                            return 'Please enter your first name';
                           }
                           return null;
                         },
                       ),
-                      SizedBox(
-                        height: kHorizontalMargin,
-                      ),
+                      SizedBox(height: kHorizontalMargin,),
                       const Text(
-                        'Phone No.',
-                        style: TextStyle(fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                        ),
+                        'Last Name',
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400,),
                       ),
                       TextFormField(
+                        controller: _lnameController,
                         decoration: InputDecoration(
-                          hintText: "9800000000",
+                          hintText: "Thapa",
                           filled: true,
-                          fillColor: const Color(0xFFFFFFF),
+                          fillColor: const Color(0x0fffffff),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8)),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your phone number';
-                          }
-                          if (!RegExp(r'^\d{10}$').hasMatch(value)) {
-                            return 'Please enter a valid 10-digit phone number';
+                            return 'Please enter your last name';
                           }
                           return null;
                         },
                       ),
-                      SizedBox(
-                        height: kHorizontalMargin,
-                      ),
+                      SizedBox(height: kHorizontalMargin,),
                       const Text(
                         'Email',
                         style: TextStyle(
                           fontSize: 18,
-                        fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                       TextFormField(
+                        controller: _emailController,
                         decoration: InputDecoration(
                           hintText: "someone@gmail.com",
                           filled: true,
-                          fillColor: const Color(0xFFFFFFF),
+                          fillColor: const Color(0x0fffffff),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8)),
                         ),
@@ -143,19 +139,17 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                           return null;
                         },
                       ),
-                      SizedBox(
-                        height: kHorizontalMargin,
-                      ),
+                      SizedBox(height: kHorizontalMargin,),
                       const Text(
                         'Password',
-                        style: TextStyle(fontSize: 18,
-                        fontWeight: FontWeight.w400,),
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400,),
                       ),
                       TextFormField(
+                        controller: _passwordController,
                         decoration: InputDecoration(
                           hintText: "",
                           filled: true,
-                          fillColor: const Color(0xFFFFFFF),
+                          fillColor: const Color(0x0fffffff),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8)),
                           suffixIcon: IconButton(
@@ -174,19 +168,16 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your password';
                           }
-                          _password = value;
                           return null;
                         },
                       ),
-                      SizedBox(
-                        height: kHorizontalMargin,
-                      ),
+                      SizedBox(height: kHorizontalMargin,),
                       const Text(
                         'Confirm Password',
-                        style: TextStyle(fontSize: 18,
-                        fontWeight: FontWeight.w400,)
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400,)
                       ),
                       TextFormField(
+                        controller: _confirmPasswordController,
                         decoration: InputDecoration(
                           hintText: "",
                           filled: true,
@@ -209,7 +200,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                           if (value == null || value.isEmpty) {
                             return 'Please confirm your password';
                           }
-                          if (value != _password) {
+                          if (value != _passwordController.text) {
                             return 'Passwords do not match';
                           }
                           return null;
@@ -217,12 +208,11 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                       ),
                       Center(
                         child: Container(
-                          margin:
-                              EdgeInsets.symmetric(vertical: kVerticalMargin),
+                          margin: EdgeInsets.symmetric(vertical: kVerticalMargin),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               fixedSize: Size(width * 2, height * 0.07),
-                              backgroundColor:  const Color.fromARGB(255, 77, 143, 177),
+                              backgroundColor: const Color.fromARGB(255, 77, 143, 177),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -231,24 +221,38 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                               "REGISTER",
                               style: TextStyle(
                                 fontSize: 24,
-                              fontFamily: 'Times',
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xFFFCFCFC),
-
+                                fontFamily: 'Times',
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFFFCFCFC),
                               ),
                             ),
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                // Perform registration logic
-                                Navigator.pop(context);
+                                // Create AuthEntity object
+                                var user = AuthEntity(
+                                  firstName: _fnameController.text,
+                                  lastName: _lnameController.text,
+                                  email: _emailController.text,
+                                  password: _passwordController.text,
+                                  confirmpassword: _confirmPasswordController.text,
+                                );
+
+                                // Call register method from authViewModelProvider
+                                ref.read(authViewModelProvider.notifier).register(user);
+
+                                // Print data to the terminal for debugging
+                                // print('First Name: ${_fnameController.text}');
+                                // print('Last Name: ${_lnameController.text}');
+                                // print('Email: ${_emailController.text}');
+                                // print('Password: ${_passwordController.text}');
+                                // print('Confirm Password: ${_confirmPasswordController.text}');
                               }
                             },
                           ),
                         ),
                       ),
                       Container(
-                        margin:
-                            EdgeInsets.symmetric(horizontal: kHorizontalMargin),
+                        margin: EdgeInsets.symmetric(horizontal: kHorizontalMargin),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -257,28 +261,26 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                                 "Already have an account?",
                                 style: TextStyle(
                                   fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xFF0A0C0E),
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0xFF0A0C0E),
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              width: width * 0.02,
-                            ),
+                            SizedBox(width: width * 0.02,),
                             GestureDetector(
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const LoginView()),
+                                  MaterialPageRoute(builder: (context) => const LoginView()),
                                 );
                               },
                               child: const Text(
                                 "Login",
-                               style: TextStyle( fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                                color:  Color.fromARGB(255, 77, 143, 177),),
-                                
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  color: Color.fromARGB(255, 77, 143, 177),
+                                ),
                               ),
                             ),
                           ],

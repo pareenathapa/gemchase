@@ -1,25 +1,66 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart' as http;
+import 'package:gemchase_clean_arch/core/utils/asset_provider.dart';
+import 'package:gemchase_clean_arch/core/utils/util.dart';
+import 'package:gemchase_clean_arch/core/constants/color_constants.dart';
 
 
-import '../core/constants/color_constants.dart';
-import '../core/utils/asset_provider.dart';
-import '../core/utils/util.dart';
-import 'login_screen.dart';
-
-
-
-class SignupScreen extends StatefulWidget {
-  const SignupScreen({super.key});
+class RegisterView extends ConsumerStatefulWidget {
+  const RegisterView({super.key});
 
   @override
-  State<SignupScreen> createState() => _SignupScreenState();
+  ConsumerState<RegisterView> createState() => _RegisterViewState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
+class _RegisterViewState extends ConsumerState<RegisterView> {
   final _formKey = GlobalKey<FormState>();
   bool _isPasswordHidden = true;
   bool _isCPasswordHidden = true;
   String? _password;
+  String? _name;
+  String? _phone;
+  String? _email;
+
+  Future<void> _registerUser() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+
+      final url = Uri.parse('http://localhost:5000/api/user/create');
+      try {
+        final response = await http.post(
+          url,
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, String>{
+            'name': _name!,
+            'phone': _phone!,
+            'email': _email!,
+            'password': _password!,
+          }),
+        );
+
+        if (response.statusCode == 200) {
+          // Navigate or show a success message
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Registration Successful!')),
+          );
+          Navigator.pop(context);
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Failed to register. Try again later.')),
+          );
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: $e')),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,263 +73,32 @@ class _SignupScreenState extends State<SignupScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(Assets.images.Logo),
-                
+                Image.asset(Assets.images.Logo, height: 150, width: 500),
                 Container(
-                  margin: EdgeInsets.symmetric(
-                    horizontal: kHorizontalMargin,
-                  ),
+                  margin: EdgeInsets.symmetric(horizontal: kHorizontalMargin),
                   child: const Column(
-                    // mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         "Register",
-                        style: TextStyle(
-                           fontSize: 24,
-                        fontFamily: 'Times',
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                        )
+                        style: TextStyle(fontSize: 24, fontFamily: 'Times', fontWeight: FontWeight.w400, color: Colors.black),
                       ),
                       Text(
-                        "Create you account and experience the app.",
-                        style: TextStyle(
-                          fontSize: 12,
-                        color: Color(0xFF454C53),
-                        fontWeight: FontWeight.w400,
-                        ),
+                        "Create your account and experience the app.",
+                        style: TextStyle(fontSize: 12, color: Color(0xFF454C53), fontWeight: FontWeight.w400),
                       )
                     ],
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(
-                      horizontal: kHorizontalMargin, vertical: kVerticalMargin),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Name',
-                        style: TextStyle(
-                          fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          hintText: "Test User 01",
-                          filled: true,
-                          fillColor: const Color(0xFFFFFFF),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8)),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your name';
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(
-                        height: kHorizontalMargin,
-                      ),
-                      const Text(
-                        'Phone No.',
-                        style: TextStyle(fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          hintText: "9800000000",
-                          filled: true,
-                          fillColor: const Color(0xFFFFFFF),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8)),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your phone number';
-                          }
-                          if (!RegExp(r'^\d{10}$').hasMatch(value)) {
-                            return 'Please enter a valid 10-digit phone number';
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(
-                        height: kHorizontalMargin,
-                      ),
-                      const Text(
-                        'Email',
-                        style: TextStyle(
-                          fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          hintText: "someone@gmail.com",
-                          filled: true,
-                          fillColor: const Color(0xFFFFFFF),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8)),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your email';
-                          }
-                          if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                            return 'Please enter a valid email address';
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(
-                        height: kHorizontalMargin,
-                      ),
-                      const Text(
-                        'Password',
-                        style: TextStyle(fontSize: 18,
-                        fontWeight: FontWeight.w400,),
-                      ),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          hintText: "",
-                          filled: true,
-                          fillColor: const Color(0xFFFFFFF),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8)),
-                          suffixIcon: IconButton(
-                            icon: Icon(_isPasswordHidden
-                                ? Icons.visibility
-                                : Icons.visibility_off),
-                            onPressed: () {
-                              setState(() {
-                                _isPasswordHidden = !_isPasswordHidden;
-                              });
-                            },
-                          ),
-                        ),
-                        obscureText: _isPasswordHidden,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your password';
-                          }
-                          _password = value;
-                          return null;
-                        },
-                      ),
-                      SizedBox(
-                        height: kHorizontalMargin,
-                      ),
-                      const Text(
-                        'Confirm Password',
-                        style: TextStyle(fontSize: 18,
-                        fontWeight: FontWeight.w400,)
-                      ),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          hintText: "",
-                          filled: true,
-                          fillColor: const Color.fromARGB(15, 111, 159, 192),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8)),
-                          suffixIcon: IconButton(
-                            icon: Icon(_isCPasswordHidden
-                                ? Icons.visibility
-                                : Icons.visibility_off),
-                            onPressed: () {
-                              setState(() {
-                                _isCPasswordHidden = !_isCPasswordHidden;
-                              });
-                            },
-                          ),
-                        ),
-                        obscureText: _isCPasswordHidden,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please confirm your password';
-                          }
-                          if (value != _password) {
-                            return 'Passwords do not match';
-                          }
-                          return null;
-                        },
-                      ),
-                      Center(
-                        child: Container(
-                          margin:
-                              EdgeInsets.symmetric(vertical: kVerticalMargin),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              fixedSize: Size(width * 2, height * 0.07),
-                              backgroundColor:  const Color.fromARGB(255, 77, 143, 177),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                            child: const Text(
-                              "REGISTER",
-                              style: TextStyle(
-                                fontSize: 24,
-                              fontFamily: 'Times',
-                              fontWeight: FontWeight.w400,
-                              color: Color(0xFFFCFCFC),
-
-                              ),
-                            ),
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                // Perform registration logic
-                                Navigator.pop(context);
-                              }
-                            },
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin:
-                            EdgeInsets.symmetric(horizontal: kHorizontalMargin),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Center(
-                              child: const Text(
-                                "Already have an account?",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xFF0A0C0E),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: width * 0.02,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const LoginScreen()),
-                                );
-                              },
-                              child: const Text(
-                                "Login",
-                               style: TextStyle( fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                                color:  Color.fromARGB(255, 77, 143, 177),),
-                                
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                // Additional input fields and registration button
+                // ...
+                Center(
+                  child: ElevatedButton(
+                    onPressed: _registerUser,
+                    child: Text('Register'),
                   ),
                 ),
+                // Other widgets...
               ],
             ),
           ),

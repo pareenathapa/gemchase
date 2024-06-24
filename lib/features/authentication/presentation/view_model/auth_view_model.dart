@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -55,7 +54,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
     );
   }
 
-  Future<void> login(
+ login(
     String email,
     String password,
   ) async {

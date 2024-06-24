@@ -1,11 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gemchase_clean_arch/app/constants/api_endpoint.dart';
+import 'package:gemchase_clean_arch/core/failure/failure.dart';
+import 'package:gemchase_clean_arch/core/networking/remote/http_service.dart';
 import 'package:gemchase_clean_arch/core/shared_prefs/auth_shared_prefs.dart';
-import '../../../../../app/constants/api_endpoint.dart';
-import '../../../../../core/failure/failure.dart';
-import '../../../../../core/networking/remote/http_service.dart';
-import '../../../domain/entity/auth_entity.dart';
+import 'package:gemchase_clean_arch/features/authentication/domain/entity/auth_entity.dart';
+
 
  
 final authRemoteDataSourceProvider = Provider(
@@ -24,10 +25,12 @@ class AuthRemoteDataSource {
       Response response = await dio.post(
         ApiEndpoints.register,
         data: {
-          "fullName": user.fullName,
-          "phone": user.phone,
+          "firstName": user.firstName,
+          "lastName": user.lastName,
+         
           "email": user.email,
           "password": user.password,
+          "confirmPassword": user.confirmpassword,
         },
       );
       if (response.statusCode == 200) {
