@@ -6,11 +6,15 @@ class ApiEndpoints {
 
   static const Duration connectionTimeout = Duration(seconds: 1000);
   static const Duration receiveTimeout = Duration(seconds: 1000);
-  static const String baseUrl = "http://10.0.2.2:5000/api/user/";
+  static const String baseUrl = "http://10.0.2.2:5000/api/";
 
   // ====================== Auth Routes ======================
-  static const String login = "login";
-  static const String register = "create";
+  static const String login = "user/login";
+  static const String register = "user/create";
+  static const String Image = "http://10.0.2.2:5000/jewelerys/";
+  static const String uploadImage = "auth/uploadImage";
+  static const String getJewelerys = "jewelery/get_all_jewelerys";
+  static const limitPage = 5;
 }
 
 // class ApiService {
