@@ -8,7 +8,7 @@ import '../../../../app/constants/hive_table_constant.dart';
 import '../../domain/entity/auth_entity.dart';
 
 
-part 'auth_hive_model.g.dart';
+//part 'auth_hive_model.g.dart';
 //dart run build_runner build -d
 
 final authHiveModelProvider = Provider(

@@ -17,7 +17,7 @@ class JeweleryEntity extends Equatable {
     required this.jeweleryDescription,
     required this.jeweleryCategory, 
     required this.jeweleryImage,
-    required this.createdAt, 
+    required this.createdAt, required int buyCount, 
   });
 
   @override

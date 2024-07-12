@@ -67,7 +67,7 @@ class JeweleryApiModel {
  
   // Convert remote to entity
   JeweleryEntity toEntity() =>
-      JeweleryEntity(jeweleryId: jeweleryId, jeweleryName:jeweleryName, jeweleryPrice: jeweleryPrice,jeweleryDescription: jeweleryDescription, jeweleryCategory: jeweleryCategory, jeweleryImage:jeweleryImage,createdAt: createdAt);
+      JeweleryEntity(jeweleryId: jeweleryId, jeweleryName:jeweleryName, jeweleryPrice: jeweleryPrice,jeweleryDescription: jeweleryDescription, jeweleryCategory: jeweleryCategory, jeweleryImage:jeweleryImage,createdAt: createdAt, buyCount: 0);
  
   //Convert entity to remote
   JeweleryApiModel fromEntity(JeweleryEntity entity) => JeweleryApiModel(

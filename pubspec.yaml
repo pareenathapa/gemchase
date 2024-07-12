@@ -51,7 +51,7 @@ dependencies:
   hive_flutter: ^1.1.0
   json_annotation: ^4.9.0
   http: ^1.2.1
-
+  mockito: ^5.4.4
 
   hive: any
   riverpod: ^2.5.1

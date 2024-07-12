@@ -1,13 +1,10 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gemchase_clean_arch/core/constants/color_constants.dart';
+import 'package:gemchase_clean_arch/core/utils/asset_provider.dart';
+import 'package:gemchase_clean_arch/core/utils/util.dart';
 import 'package:gemchase_clean_arch/features/authentication/presentation/view_model/auth_view_model.dart';
-import '../../../../core/constants/color_constants.dart';
-import '../../../../core/utils/asset_provider.dart';
-import '../../../../core/utils/util.dart';
-import '../../../../screen/forget_password.dart';
-import '../../../../screen/homepage.dart';
+import 'package:gemchase_clean_arch/screen/forget_password.dart';
 import 'register_view.dart';
 
 
