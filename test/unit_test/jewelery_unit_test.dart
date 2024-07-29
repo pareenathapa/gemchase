@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gemchase_clean_arch/features/jewelery/domain/entity/jewelery_entity.dart';
 import 'package:gemchase_clean_arch/features/jewelery/domain/usecases/jewelery_usecase.dart';
-import 'package:gemchase_clean_arch/features/jewelery/presentation/state/jewelery_state.dart';
 import 'package:gemchase_clean_arch/features/jewelery/presentation/viewmodel/jewelery_view_model.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

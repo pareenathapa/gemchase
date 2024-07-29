@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
@@ -17,8 +16,8 @@ class RegisterView extends ConsumerStatefulWidget {
 
 class _RegisterViewState extends ConsumerState<RegisterView> {
   final _formKey = GlobalKey<FormState>();
-  bool _isPasswordHidden = true;
-  bool _isCPasswordHidden = true;
+  final bool _isPasswordHidden = true;
+  final bool _isCPasswordHidden = true;
   String? _password;
   String? _name;
   String? _phone;
@@ -46,12 +45,12 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
         if (response.statusCode == 200) {
           // Navigate or show a success message
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Registration Successful!')),
+            const SnackBar(content: Text('Registration Successful!')),
           );
           Navigator.pop(context);
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Failed to register. Try again later.')),
+            const SnackBar(content: Text('Failed to register. Try again later.')),
           );
         }
       } catch (e) {
@@ -95,7 +94,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                 Center(
                   child: ElevatedButton(
                     onPressed: _registerUser,
-                    child: Text('Register'),
+                    child: const Text('Register'),
                   ),
                 ),
                 // Other widgets...

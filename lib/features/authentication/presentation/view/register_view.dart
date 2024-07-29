@@ -5,7 +5,6 @@ import 'package:gemchase_clean_arch/core/utils/asset_provider.dart';
 import 'package:gemchase_clean_arch/core/utils/util.dart';
 import 'package:gemchase_clean_arch/features/authentication/domain/entity/auth_entity.dart';
 import 'package:gemchase_clean_arch/features/authentication/presentation/view_model/auth_view_model.dart';
-
 import 'login_view.dart';
 
 class RegisterView extends ConsumerStatefulWidget {
@@ -19,14 +18,16 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
   final _formKey = GlobalKey<FormState>();
   bool _isPasswordHidden = true;
   bool _isCPasswordHidden = true;
-  final _fnameController = TextEditingController(text: 'parina');
-  final _lnameController = TextEditingController(text: 'thapa');
-  final _emailController = TextEditingController(text: 'test@gmail.com');
-  final _passwordController = TextEditingController(text: 'test');
-  final _confirmPasswordController = TextEditingController(text: 'test');
+  final _fnameController = TextEditingController();
+  final _lnameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: const Color(kBackground),
       body: SafeArea(
@@ -36,53 +37,38 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Image.asset(Assets.images.Logo, height: 150, width: 500,),
+                Image.asset(Assets.images.Logo, height: 150, width: 500),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: kHorizontalMargin,),
+                  margin: EdgeInsets.symmetric(horizontal: kHorizontalMargin),
                   child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         "Register",
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontFamily: 'Times',
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                        ),
+                        style: TextStyle(fontSize: 24, fontFamily: 'Times', fontWeight: FontWeight.w400, color: Colors.black),
                       ),
                       Text(
                         "Create your account and experience the app.",
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Color(0xFF454C53),
-                          fontWeight: FontWeight.w400,
-                        ),
-                      )
+                        style: TextStyle(fontSize: 12, color: Color(0xFF454C53), fontWeight: FontWeight.w400),
+                      ),
                     ],
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(
-                      horizontal: kHorizontalMargin, vertical: kVerticalMargin),
+                  margin: EdgeInsets.symmetric(horizontal: kHorizontalMargin, vertical: kVerticalMargin),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'First Name',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
+                      const Text('First Name', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400)),
                       TextFormField(
                         controller: _fnameController,
                         decoration: InputDecoration(
-                          hintText: "Parina",
+                          hintText: "First Name",
                           filled: true,
                           fillColor: const Color(0x0fffffff),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8)),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -91,19 +77,17 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                           return null;
                         },
                       ),
-                      SizedBox(height: kHorizontalMargin,),
-                      const Text(
-                        'Last Name',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400,),
-                      ),
+                      SizedBox(height: kHorizontalMargin),
+                      const Text('Last Name', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400)),
                       TextFormField(
                         controller: _lnameController,
                         decoration: InputDecoration(
-                          hintText: "Thapa",
+                          hintText: "Last Name",
                           filled: true,
                           fillColor: const Color(0x0fffffff),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8)),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -112,14 +96,8 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                           return null;
                         },
                       ),
-                      SizedBox(height: kHorizontalMargin,),
-                      const Text(
-                        'Email',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
+                      SizedBox(height: kHorizontalMargin),
+                      const Text('Email', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400)),
                       TextFormField(
                         controller: _emailController,
                         decoration: InputDecoration(
@@ -127,7 +105,8 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                           filled: true,
                           fillColor: const Color(0x0fffffff),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8)),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -139,11 +118,8 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                           return null;
                         },
                       ),
-                      SizedBox(height: kHorizontalMargin,),
-                      const Text(
-                        'Password',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400,),
-                      ),
+                      SizedBox(height: kHorizontalMargin),
+                      const Text('Password', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400)),
                       TextFormField(
                         controller: _passwordController,
                         decoration: InputDecoration(
@@ -151,11 +127,10 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                           filled: true,
                           fillColor: const Color(0x0fffffff),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8)),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                           suffixIcon: IconButton(
-                            icon: Icon(_isPasswordHidden
-                                ? Icons.visibility
-                                : Icons.visibility_off),
+                            icon: Icon(_isPasswordHidden ? Icons.visibility : Icons.visibility_off),
                             onPressed: () {
                               setState(() {
                                 _isPasswordHidden = !_isPasswordHidden;
@@ -171,11 +146,8 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                           return null;
                         },
                       ),
-                      SizedBox(height: kHorizontalMargin,),
-                      const Text(
-                        'Confirm Password',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400,)
-                      ),
+                      SizedBox(height: kHorizontalMargin),
+                      const Text('Confirm Password', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400)),
                       TextFormField(
                         controller: _confirmPasswordController,
                         decoration: InputDecoration(
@@ -183,11 +155,10 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                           filled: true,
                           fillColor: const Color.fromARGB(15, 111, 159, 192),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8)),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                           suffixIcon: IconButton(
-                            icon: Icon(_isCPasswordHidden
-                                ? Icons.visibility
-                                : Icons.visibility_off),
+                            icon: Icon(_isCPasswordHidden ? Icons.visibility : Icons.visibility_off),
                             onPressed: () {
                               setState(() {
                                 _isCPasswordHidden = !_isCPasswordHidden;
@@ -211,7 +182,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                           margin: EdgeInsets.symmetric(vertical: kVerticalMargin),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              fixedSize: Size(width * 2, height * 0.07),
+                              fixedSize: Size(width * 0.8, height * 0.07),
                               backgroundColor: const Color.fromARGB(255, 77, 143, 177),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
@@ -219,16 +190,10 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                             ),
                             child: const Text(
                               "REGISTER",
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontFamily: 'Times',
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xFFFCFCFC),
-                              ),
+                              style: TextStyle(fontSize: 24, fontFamily: 'Times', fontWeight: FontWeight.w400, color: Color(0xFFFCFCFC)),
                             ),
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                // Create AuthEntity object
                                 var user = AuthEntity(
                                   firstName: _fnameController.text,
                                   lastName: _lnameController.text,
@@ -236,16 +201,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                                   password: _passwordController.text,
                                   confirmpassword: _confirmPasswordController.text,
                                 );
-
-                                // Call register method from authViewModelProvider
                                 ref.read(authViewModelProvider.notifier).register(user);
-
-                                // Print data to the terminal for debugging
-                                // print('First Name: ${_fnameController.text}');
-                                // print('Last Name: ${_lnameController.text}');
-                                // print('Email: ${_emailController.text}');
-                                // print('Password: ${_passwordController.text}');
-                                // print('Confirm Password: ${_confirmPasswordController.text}');
                               }
                             },
                           ),
@@ -259,28 +215,17 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                             const Center(
                               child: Text(
                                 "Already have an account?",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xFF0A0C0E),
-                                ),
+                                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Color(0xFF0A0C0E)),
                               ),
                             ),
-                            SizedBox(width: width * 0.02,),
+                            SizedBox(width: width * 0.02),
                             GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => const LoginView()),
-                                );
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginView()));
                               },
                               child: const Text(
                                 "Login",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  color: Color.fromARGB(255, 77, 143, 177),
-                                ),
+                                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Color.fromARGB(255, 77, 143, 177)),
                               ),
                             ),
                           ],

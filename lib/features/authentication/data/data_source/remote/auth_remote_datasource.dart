@@ -1,3 +1,4 @@
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,19 +8,19 @@ import 'package:gemchase_clean_arch/core/networking/remote/http_service.dart';
 import 'package:gemchase_clean_arch/core/shared_prefs/auth_shared_prefs.dart';
 import 'package:gemchase_clean_arch/features/authentication/domain/entity/auth_entity.dart';
 
-
- 
 final authRemoteDataSourceProvider = Provider(
   (ref) => AuthRemoteDataSource(
     dio: ref.read(httpServiceProvider),
     authSharedPrefs: ref.read(authSharedPrefsProvider),
   ),
 );
- 
+
 class AuthRemoteDataSource {
   final Dio dio;
   final AuthSharedPrefs authSharedPrefs;
+
   AuthRemoteDataSource({required this.dio, required this.authSharedPrefs});
+
   Future<Either<Failure, bool>> register(AuthEntity user) async {
     try {
       Response response = await dio.post(
@@ -27,7 +28,6 @@ class AuthRemoteDataSource {
         data: {
           "firstName": user.firstName,
           "lastName": user.lastName,
-         
           "email": user.email,
           "password": user.password,
           "confirmPassword": user.confirmpassword,
@@ -52,7 +52,7 @@ class AuthRemoteDataSource {
       );
     }
   }
- 
+
   // Upload image using multipart
   // Future<Either<Failure, String>> uploadProfilePicture(
   //     File image,
@@ -91,6 +91,7 @@ class AuthRemoteDataSource {
     String password,
   ) async {
     try {
+      print('you are login');
       Response response = await dio.post(
         ApiEndpoints.login,
         data: {
@@ -98,6 +99,7 @@ class AuthRemoteDataSource {
           "password": password,
         },
       );
+      print('isSuccessLogin:$response');
       if (response.statusCode == 200) {
         // retrieve token
         // print({response.data["token"]});
@@ -113,10 +115,19 @@ class AuthRemoteDataSource {
         );
       }
     } on DioException catch (e) {
+      print('failed to peforma operation:$e');
       return Left(
         Failure(
           error: e.error.toString(),
           statusCode: e.response?.statusCode.toString() ?? '0',
+        ),
+      );
+    } catch (e) {
+      print('failed to peforma asdfasdf:$e');
+      return Left(
+        Failure(
+          error: 'failed',
+          statusCode: '0',
         ),
       );
     }

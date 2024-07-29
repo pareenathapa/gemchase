@@ -1,12 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../../core/common/my_snackbar.dart';
-import '../../domain/entity/auth_entity.dart';
-import '../../domain/usecases/auth_usecase.dart';
-import '../navigator/login_navigator.dart';
-import '../state/auth_state.dart';
+import 'package:gemchase_clean_arch/core/common/my_snackbar.dart';
+import 'package:gemchase_clean_arch/features/authentication/domain/entity/auth_entity.dart';
+import 'package:gemchase_clean_arch/features/authentication/domain/usecases/auth_usecase.dart';
+import 'package:gemchase_clean_arch/features/authentication/presentation/navigator/login_navigator.dart';
+import 'package:gemchase_clean_arch/features/authentication/presentation/state/auth_state.dart';
 
 
 
@@ -18,7 +16,10 @@ final authViewModelProvider = StateNotifierProvider<AuthViewModel, AuthState>(
 );
 
 class AuthViewModel extends StateNotifier<AuthState> {
-  AuthViewModel(this.navigator, this.authUseCase) : super(AuthState.initial());
+  AuthViewModel(
+    this.navigator,
+    this.authUseCase,
+  ) : super(AuthState.initial());
   final AuthUseCase authUseCase;
   final LoginViewNavigator navigator;
 
@@ -54,7 +55,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
     );
   }
 
- login(
+  login(
     String email,
     String password,
   ) async {
@@ -63,10 +64,12 @@ class AuthViewModel extends StateNotifier<AuthState> {
     data.fold(
       (failure) {
         state = state.copyWith(isLoading: false, error: failure.error);
+        print('you are failure');
         showMySnackBar(message: failure.error, color: Colors.red);
       },
       (success) {
         state = state.copyWith(isLoading: false, error: null);
+        print('you are success:');
         openHomeView();
         // showMySnackBar(message: "Successfully logged in!");
       },
@@ -77,7 +80,11 @@ class AuthViewModel extends StateNotifier<AuthState> {
     navigator.openRegisterView();
   }
 
-   void openHomeView() {
-     navigator.openDashboardView();
-   }
+  void openHomeView() {
+    print('you are navigating');
+    navigator.openDashboardView();
+  }
+// void openHomeView() {
+//   navigator.openHomeView();
+// }
 }

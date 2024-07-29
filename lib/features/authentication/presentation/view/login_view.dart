@@ -3,11 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gemchase_clean_arch/core/constants/color_constants.dart';
 import 'package:gemchase_clean_arch/core/utils/asset_provider.dart';
 import 'package:gemchase_clean_arch/core/utils/util.dart';
+import 'package:gemchase_clean_arch/features/authentication/forgetpassword/view/forgetpassword_view.dart';
 import 'package:gemchase_clean_arch/features/authentication/presentation/view_model/auth_view_model.dart';
-import 'package:gemchase_clean_arch/screen/forget_password.dart';
 import 'register_view.dart';
-
-
 
 
 class LoginView extends ConsumerStatefulWidget {
@@ -23,17 +21,13 @@ class _LoginViewState extends ConsumerState<LoginView> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  @override 
+  @override
   void dispose() {
-    _emailController.dispose(); 
+    _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
 
-  // final _usernameController = TextEditingController();
-  // final _passwordController = TextEditingController();
-  final _gap = const SizedBox(height: 8);
-  bool isObscure = true;
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -48,43 +42,28 @@ class _LoginViewState extends ConsumerState<LoginView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Image.asset(Assets.images.Logo),
-                // const LoginHeader(),
                 Container(
-                  margin: EdgeInsets.symmetric(
-                    horizontal: kHorizontalMargin,
-                  ),
+                  margin: EdgeInsets.symmetric(horizontal: kHorizontalMargin),
                   child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         "LOGIN",
-                        style: TextStyle(fontSize: 24,
-                        fontFamily: 'Times',
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,),
+                        style: TextStyle(fontSize: 24, fontFamily: 'Times', fontWeight: FontWeight.w400, color: Colors.black),
                       ),
                       Text(
                         "Login to your account and enhance your memory.",
-                        style: TextStyle(fontSize: 12,
-                        color: Color(0xFF454C53),
-                        fontWeight: FontWeight.w400,),
+                        style: TextStyle(fontSize: 12, color: Color(0xFF454C53), fontWeight: FontWeight.w400),
                       ),
                     ],
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(
-                    horizontal: kHorizontalMargin,
-                    vertical: kVerticalMargin,
-                  ),
+                  margin: EdgeInsets.symmetric(horizontal: kHorizontalMargin, vertical: kVerticalMargin),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Email',
-                        style: TextStyle(fontSize: 18,
-                        fontWeight: FontWeight.w400,),
-                      ),
+                      const Text('Email', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400)),
                       TextFormField(
                         controller: _emailController,
                         decoration: InputDecoration(
@@ -106,11 +85,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                         },
                       ),
                       SizedBox(height: kHorizontalMargin),
-                      const Text(
-                        'Password',
-                        style: TextStyle(fontSize: 18,
-                        fontWeight: FontWeight.w400,),
-                      ),
+                      const Text('Password', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400)),
                       TextFormField(
                         controller: _passwordController,
                         decoration: InputDecoration(
@@ -121,11 +96,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           suffixIcon: IconButton(
-                            icon: Icon(
-                              _isPasswordHidden
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                            ),
+                            icon: Icon(_isPasswordHidden ? Icons.visibility : Icons.visibility_off),
                             onPressed: () {
                               setState(() {
                                 _isPasswordHidden = !_isPasswordHidden;
@@ -138,7 +109,6 @@ class _LoginViewState extends ConsumerState<LoginView> {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your password';
                           }
-                        
                           return null;
                         },
                       ),
@@ -146,26 +116,17 @@ class _LoginViewState extends ConsumerState<LoginView> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(
-                    horizontal: kHorizontalMargin,
-                  ),
+                  margin: EdgeInsets.symmetric(horizontal: kHorizontalMargin),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ForgetPassword(),
-                            ),
-                          );
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const ForgetPassword()));
                         },
                         child: const Text(
                           "Forget Password?",
-                         style: TextStyle( fontSize: 14,
-                          color: Color(0xFF0A0C0E),
-                          fontWeight: FontWeight.w500,),
+                          style: TextStyle(fontSize: 14, color: Color(0xFF0A0C0E), fontWeight: FontWeight.w500),
                         ),
                       ),
                     ],
@@ -173,13 +134,10 @@ class _LoginViewState extends ConsumerState<LoginView> {
                 ),
                 Center(
                   child: Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: kHorizontalMargin,
-                      vertical: kVerticalMargin,
-                    ),
+                    margin: EdgeInsets.symmetric(horizontal: kHorizontalMargin, vertical: kVerticalMargin),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        fixedSize: Size(width * 2, height * 0.07),
+                        fixedSize: Size(width * 0.8, height * 0.07),
                         backgroundColor: const Color.fromARGB(255, 77, 143, 177),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -187,16 +145,11 @@ class _LoginViewState extends ConsumerState<LoginView> {
                       ),
                       child: const Text(
                         "LOGIN",
-                        style: TextStyle(fontSize: 24,
-                        fontFamily: 'Times',
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xFFFCFCFC),),
+                        style: TextStyle(fontSize: 24, fontFamily: 'Times', fontWeight: FontWeight.w400, color: Color(0xFFFCFCFC)),
                       ),
-                      onPressed: () async{
+                      onPressed: () async {
                         if (_formKey.currentState?.validate() ?? false) {
-                          await ref
-                              .read(authViewModelProvider.notifier)
-                              .login(
+                          await ref.read(authViewModelProvider.notifier).login(
                                 _emailController.text,
                                 _passwordController.text,
                               );
@@ -212,25 +165,16 @@ class _LoginViewState extends ConsumerState<LoginView> {
                     children: [
                       const Text(
                         "Don’t have an account?",
-                        style: TextStyle(fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xFF0A0C0E),),
+                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400, color: Color(0xFF0A0C0E)),
                       ),
                       SizedBox(width: width * 0.02),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const RegisterView(),
-                            ),
-                          );
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterView()));
                         },
                         child: const Text(
                           "Register",
-                          style: TextStyle(fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          color: Color.fromARGB(255, 77, 143, 177),),
+                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Color.fromARGB(255, 77, 143, 177)),
                         ),
                       ),
                     ],

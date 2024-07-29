@@ -8,7 +8,7 @@ import '../../../../app/constants/hive_table_constant.dart';
 import '../../domain/entity/auth_entity.dart';
 
 
-//part 'auth_hive_model.g.dart';
+// import 'auth_hive_model.g.dart';
 //dart run build_runner build -d
 
 final authHiveModelProvider = Provider(
@@ -45,9 +45,9 @@ class AuthHiveModel {
     this.firstName,
     this.lastName,
     this.phone,
-    required this.email,
-    required this.password,
-    required this.confirmpassword,
+     this.email,
+     this.password,
+     this.confirmpassword,
   }) : userId = userId ?? const Uuid().v4();
 
   // empty constructor
