@@ -1,217 +1,80 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import '../../../../core/common/widgets/app_text_field.dart';
-
-// class HomeBaseView extends StatefulWidget {
-//   const HomeBaseView({super.key});
-
-//   @override
-//   State<HomeBaseView> createState() => _HomeBaseViewState();
-// }
-
-// class _HomeBaseViewState extends State<HomeBaseView> {
-//   final FocusNode searchFocusNode = FocusNode();
-//   final TextEditingController searchTextEditingController =
-//       TextEditingController();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       resizeToAvoidBottomInset: true,
-//       backgroundColor: const Color(0xffe8e9eb),
-//       body: Padding(
-//         padding: EdgeInsets.symmetric(
-//           horizontal: 16.w,
-//           vertical: 16.h,
-//         ),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             HomeTopSection(),
-//             SizedBox(height: 16.h),
-//             AppTextField(
-//               labelText: 'Search',
-//               controller: searchTextEditingController,
-//               onChanged: (value) {},
-//               borderColor: Colors.black,
-//               suffixIcon: Container(
-//                 margin: EdgeInsets.all(6.h),
-//                 height: 20.h,
-//                 width: 20.h,
-//                 decoration: BoxDecoration(
-//                   borderRadius: BorderRadius.circular(4.r),
-//                   color: const Color(0xffd7ae36),
-//                 ),
-//                 child: const Icon(
-//                   Icons.filter_list,
-//                   color: Colors.white,
-//                 ),
-//               ),
-//             ),
-//             SizedBox(height: 16.h),
-//             Text(
-//               'Category',
-//               style: TextStyle(
-//                 fontSize: 18.sp,
-//                 fontWeight: FontWeight.w700,
-//               ),
-//             ),
-//             SizedBox(height: 8.h),
-//             Container(
-//               height: 65.h,
-//               width: 65.h,
-//               decoration: BoxDecoration(
-//                 borderRadius: BorderRadius.circular(8.r),
-//                 color: const Color(0xffd7ae36),
-//               ),
-//               child: const Center(
-//                 child: Text(
-//                   'All',
-//                   style: TextStyle(
-//                     color: Colors.white,
-//                   ),
-//                 ),
-//               ),
-//             ),
-//             SizedBox(height: 16.h),
-//             Text(
-//               'Popular',
-//               style: TextStyle(
-//                 fontSize: 18.sp,
-//                 fontWeight: FontWeight.w700,
-//               ),
-//             ),
-//             SizedBox(height: 12.h),
-//             Expanded(
-//               child: ProductGridView(),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// class HomeTopSection extends StatelessWidget {
-//   const HomeTopSection({
-//     super.key,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Row(
-//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//       children: [
-//         SizedBox(width: 0.w),
-//         Text(
-//           'Home',
-//           style: TextStyle(
-//             fontSize: 20.sp,
-//             fontWeight: FontWeight.w500,
-//           ),
-//         ),
-//         Container(
-//           decoration: BoxDecoration(
-//             borderRadius: BorderRadius.circular(180.r),
-//           ),
-//           child: ClipRRect(
-//             borderRadius: BorderRadius.circular(180.r),
-//             child: Image.asset(
-//               fit: BoxFit.cover,
-//               'assets/images/person.png',
-//               height: 45.h,
-//               width: 45.h,
-//             ),
-//           ),
-//         )
-//       ],
-//     );
-//   }
-// }
-
-// class ProductGridView extends StatelessWidget {
-//   final List<Product> products = [
-//     Product(name: 'Silver Ring', image: 'assets/images/1719673926019-Silver ring.png'),
-//     Product(name: 'Silver Bangles', image: 'assets/images/1719674315362-Silver Bangles.png'),
-//     // Add more products here
-//   ];
-
-//   ProductGridView({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return GridView.builder(
-//       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//         crossAxisCount: 2,
-//         mainAxisSpacing: 12.h,
-//         crossAxisSpacing: 12.h,
-//         childAspectRatio: 0.7,
-//       ),
-//       itemCount: products.length,
-//       itemBuilder: (context, index) {
-//         final product = products[index];
-//         return Container(
-//           decoration: BoxDecoration(
-//             borderRadius: BorderRadius.circular(22.r),
-//             color: Colors.white,
-//           ),
-//           child: Column(
-//             children: [
-//               Image.asset(product.image),
-//               SizedBox(height: 10.h),
-//               Text(product.name),
-//             ],
-//           ),
-//         );
-//       },
-//     );
-//   }
-// }
-
-// class Product {
-//   final String name;
-//   final String image;
-
-//   Product({required this.name, required this.image});
-// }
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gemchase_clean_arch/features/auth/presentation/view_model/auth_view_model.dart';
+import 'package:gemchase_clean_arch/features/jewelry/domain/entities/jewelry_entity.dart';
+import 'package:gemchase_clean_arch/features/jewelry/presentation/view_model/jewelry_cubit.dart';
 import '../../../../core/common/widgets/app_text_field.dart';
 
-class HomeBaseView extends StatefulWidget {
+class HomeBaseView extends ConsumerStatefulWidget {
   const HomeBaseView({super.key});
 
   @override
-  State<HomeBaseView> createState() => _HomeBaseViewState();
+  ConsumerState<HomeBaseView> createState() => _HomeBaseViewState();
 }
 
-class _HomeBaseViewState extends State<HomeBaseView> {
+class _HomeBaseViewState extends ConsumerState<HomeBaseView> {
   final FocusNode searchFocusNode = FocusNode();
   final TextEditingController searchTextEditingController =
       TextEditingController();
+  // String selectedCategory = 'All';
+  // String username = 'JohnDoe';
+
+  // List<Product> products = [
+  //   Product(
+  //       name: 'Silver Ring',
+  //       image: 'assets/images/1719673926019-Silver ring.png',
+  //       category: 'Jewelry'),
+  //   Product(
+  //       name: 'Silver Bangles',
+  //       image: 'assets/images/1719674315362-Silver Bangles.png',
+  //       category: 'Jewelry'),
+  //   // Add more products here
+  // ];
+
+  // List<String> categories = ['All', 'Jewelry', 'Watches', 'Accessories'];
+
+  // List<Product> get filteredProducts {
+  //   if (selectedCategory == 'All') {
+  //     return products;
+  //   } else {
+  //     return products
+  //         .where((product) => product.category == selectedCategory)
+  //         .toList();
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
+    final isTablet = MediaQuery.of(context).size.shortestSide >= 600;
+    final username =
+        ref.watch(authViewModelProvider).loginEntity?.user?.firstName ?? "N/A";
+
+    final categories = ref.watch(jewelryViewModelProvider).categories;
+
+    final selectedCategory =
+        ref.watch(jewelryViewModelProvider).selectedCategory ?? 'All';
+
+    final filteredProducts = ref.watch(jewelryViewModelProvider).searchResults;
+
+    log('filteredProducts: $filteredProducts');
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: const Color(0xffe8e9eb),
       body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 16.w,
-          vertical: 16.h,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            HomeTopSection(),
-            SizedBox(height: 16.h),
+            HomeTopSection(username: username),
+            16.verticalSpace,
             AppTextField(
               labelText: 'Search',
               controller: searchTextEditingController,
-              onChanged: (value) {
-                // Implement search logic here
-              },
+              onChanged: (value) => setState(() {}),
               borderColor: Colors.black,
               suffixIcon: Container(
                 margin: EdgeInsets.all(6.h),
@@ -221,147 +84,137 @@ class _HomeBaseViewState extends State<HomeBaseView> {
                   borderRadius: BorderRadius.circular(4.r),
                   color: const Color(0xffd7ae36),
                 ),
-                child: const Icon(
-                  Icons.filter_list,
-                  color: Colors.white,
-                ),
+                child: const Icon(Icons.filter_list, color: Colors.white),
               ),
             ),
-            SizedBox(height: 16.h),
+            16.verticalSpace,
             Text(
               'Category',
-              style: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w700,
-              ),
+              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700),
             ),
-            SizedBox(height: 8.h),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  CategoryButton(label: 'All'),
-                  SizedBox(width: 8.w),
-                  CategoryButton(label: 'Rings'),
-                  SizedBox(width: 8.w),
-                  CategoryButton(label: 'Earrings'),
-                  SizedBox(width: 8.w),
-                  CategoryButton(label: 'Nose Rings'),
-                  SizedBox(width: 8.w),
-                  CategoryButton(label: 'Bangles'),
-                  SizedBox(width: 8.w),
-                  CategoryButton(label: 'Necklaces'),
-                ],
-              ),
+            8.verticalSpace,
+            CategoryList(
+              categories: categories,
+              selectedCategory: selectedCategory,
+              onCategorySelected: (category) {
+                ref
+                    .read(jewelryViewModelProvider.notifier)
+                    .getByCategory(category);
+              },
             ),
-            SizedBox(height: 16.h),
+            16.verticalSpace,
             Text(
               'Popular',
-              style: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w700,
-              ),
+              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w700),
             ),
-            SizedBox(height: 12.h),
+            12.verticalSpace,
             Expanded(
-              child: ProductGridView(),
-            ),
-            SizedBox(height: 16.h),
-            Text(
-              'New Collections',
-              style: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w700,
+              child: ProductGridView(
+                products: filteredProducts
+                    .where((product) => product.jewelryName!
+                        .toLowerCase()
+                        .contains(
+                            searchTextEditingController.text.toLowerCase()))
+                    .toList(),
+                isTablet: isTablet,
               ),
-            ),
-            SizedBox(height: 12.h),
-            Expanded(
-              child: ProductGridView(),
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart), label: 'Cart'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        ],
       ),
     );
   }
 }
 
 class HomeTopSection extends StatelessWidget {
-  const HomeTopSection({
-    super.key,
-  });
+  final String username;
+
+  const HomeTopSection({super.key, required this.username});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        SizedBox(width: 0.w),
         Text(
           'Home',
-          style: TextStyle(
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w500,
-          ),
+          style: TextStyle(fontSize: 20.h, fontWeight: FontWeight.w500),
         ),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(180.r),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(180.r),
-            child: Image.asset(
-              fit: BoxFit.cover,
-              'assets/images/person.png',
-              height: 45.h,
-              width: 45.h,
-            ),
-          ),
-        )
+        Text(
+          username,
+          style: TextStyle(fontSize: 16.h, fontWeight: FontWeight.w400),
+        ),
       ],
     );
   }
 }
 
-class CategoryButton extends StatelessWidget {
-  final String label;
-  const CategoryButton({super.key, required this.label});
+class CategoryList extends StatelessWidget {
+  final List<String> categories;
+  final String selectedCategory;
+  final ValueChanged<String> onCategorySelected;
+
+  const CategoryList({
+    super.key,
+    required this.categories,
+    required this.selectedCategory,
+    required this.onCategorySelected,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 65.h,
-      padding: EdgeInsets.symmetric(horizontal: 12.w),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.r),
-        color: const Color(0xffd7ae36),
-      ),
-      child: Center(
-        child: Text(
-          label,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16.sp,
-          ),
-        ),
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: categories.map((category) {
+          final isSelected = category == selectedCategory;
+          return GestureDetector(
+            onTap: () => onCategorySelected(category),
+            child: Container(
+              margin: EdgeInsets.only(right: 8.w),
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.r),
+                color:
+                    isSelected ? const Color(0xffd7ae36) : Colors.grey.shade300,
+              ),
+              child: Center(
+                child: Text(
+                  category,
+                  style: TextStyle(
+                    color: isSelected ? Colors.white : Colors.black,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ),
+          );
+        }).toList(),
       ),
     );
   }
 }
 
 class ProductGridView extends StatelessWidget {
-  final List<Product> products = [
-    Product(name: 'Silver Ring', image: 'assets/images/1719673926019-Silver ring.png'),
-    Product(name: 'Silver Bangles', image: 'assets/images/1719674315362-Silver Bangles.png'),
-    // Add more products here
-  ];
+  final List<JewelryEntity> products;
+  final bool isTablet;
 
-  ProductGridView({super.key});
+  const ProductGridView(
+      {super.key, required this.products, required this.isTablet});
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
+        crossAxisCount: isTablet ? 4 : 2,
         mainAxisSpacing: 12.h,
         crossAxisSpacing: 12.h,
         childAspectRatio: 0.7,
@@ -369,32 +222,20 @@ class ProductGridView extends StatelessWidget {
       itemCount: products.length,
       itemBuilder: (context, index) {
         final product = products[index];
-        return GestureDetector(
-          onTap: () {
-            // Navigate to product details screen
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(22.r),
-              color: Colors.white,
-            ),
-            child: Column(
-              children: [
-                Image.asset(product.image),
-                SizedBox(height: 10.h),
-                Text(product.name),
-              ],
-            ),
+        return Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(22.r),
+            color: Colors.white,
+          ),
+          child: Column(
+            children: [
+              Image.asset(product.jewelryImage!, fit: BoxFit.cover),
+              SizedBox(height: 10.h),
+              Text(product.jewelryName!),
+            ],
           ),
         );
       },
     );
   }
-}
-
-class Product {
-  final String name;
-  final String image;
-
-  Product({required this.name, required this.image});
 }

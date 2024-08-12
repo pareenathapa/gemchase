@@ -12,8 +12,7 @@ class ApiEndpoints {
   static const String login = "user/login";
   static const String register = "user/create";
   static const String Image = "http://10.0.2.2:5000/jewelerys/";
-  static const String uploadImage = "auth/uploadImage";
-  static const String getJewelerys = "jewelery/get_all_jewelerys";
+  static const String getJewelry = "jewelry";
   static const limitPage = 5;
 }
 

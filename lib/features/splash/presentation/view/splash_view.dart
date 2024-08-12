@@ -1,10 +1,7 @@
+import 'package:gemchase_clean_arch/core/common/exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../../core/utils/asset_provider.dart';
-import '../../../../core/utils/util.dart';
-import '../view_model/splash_view_model.dart';
-
+import 'package:gemchase_clean_arch/features/home/presentation/view/home_base_view.dart';
 
 class SplashView extends ConsumerStatefulWidget {
   const SplashView({super.key});
@@ -16,8 +13,45 @@ class SplashView extends ConsumerStatefulWidget {
 class _SplashViewState extends ConsumerState<SplashView> {
   @override
   void initState() {
-    ref.read(splashViewModelProvider.notifier).openLoginView();
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _navigateToHome();
+    });
+  }
+
+  void _navigateToHome() {
+    final authViewModel = ref.read(authViewModelProvider.notifier);
+    authViewModel.getSavedUser(
+      onError: (error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(error),
+            backgroundColor: Colors.red,
+          ),
+        );
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const LoginView(),
+          ),
+        );
+      },
+      onSuccess: () {
+        final state = ref.read(authViewModelProvider);
+        if (state.isSuccess) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => state.isAdmin
+                  ? const Placeholder(
+                      color: Colors.red,
+                    )
+                  : const HomeBaseView(),
+            ),
+          );
+        }
+      },
+    );
   }
 
   @override

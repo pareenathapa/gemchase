@@ -1,3 +1,4 @@
+import 'package:gemchase_clean_arch/core/common/exports.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gemchase_clean_arch/core/failure/failure.dart';

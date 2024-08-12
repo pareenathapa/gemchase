@@ -1,10 +1,7 @@
+import 'package:gemchase_clean_arch/core/common/exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gemchase_clean_arch/features/splash/presentation/view/splash_view.dart';
-
-import 'navigator_key/navigator_key.dart';
-import 'themes/app_theme.dart';
 
 class App extends ConsumerWidget {
   const App({super.key});
