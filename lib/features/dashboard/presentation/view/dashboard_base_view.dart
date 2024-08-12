@@ -61,17 +61,17 @@ class _DashboardBaseViewState extends ConsumerState<DashboardBaseView> {
         icon: NavBox(
           icon: selectedIndex == 1
               ? const Icon(
-                  Icons.heart_broken,
+                  Icons.favorite,
                   color: Colors.yellow,
                   size: 30,
                 )
               : const Icon(
-                  Icons.heart_broken,
+                  Icons.favorite,
                   size: 30,
                 ),
           isActive: selectedIndex == 1,
         ),
-        // label: 'Favorate',
+        // label: 'Favorite',
       ),
       BottomNavigationBarItem(
         icon: NavBox(
