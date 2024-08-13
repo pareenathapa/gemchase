@@ -9,6 +9,7 @@ class UserEntity extends Equatable {
   final String? phone;
   final String? email;
   final bool isAdmin;
+  final String? image;
 
   const UserEntity({
     this.id,
@@ -17,6 +18,7 @@ class UserEntity extends Equatable {
     this.phone,
     this.email,
     this.isAdmin = false,
+    this.image,
   });
 
   @override
@@ -30,6 +32,7 @@ class UserEntity extends Equatable {
       'phone': phone,
       'email': email,
       'isAdmin': isAdmin,
+      'image': image,
     };
   }
 
@@ -41,6 +44,7 @@ class UserEntity extends Equatable {
       phone: map['phone'],
       email: map['email'],
       isAdmin: map['isAdmin'] ?? false,
+      image: map['image'],
     );
   }
 
@@ -48,4 +52,9 @@ class UserEntity extends Equatable {
 
   factory UserEntity.fromJson(String source) =>
       UserEntity.fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return 'UserEntity(id: $id, firstName: $firstName, lastName: $lastName, phone: $phone, email: $email, isAdmin: $isAdmin, image: $image)';
+  }
 }

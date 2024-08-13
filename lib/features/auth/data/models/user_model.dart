@@ -13,6 +13,7 @@ class UserModel extends UserEntity {
     super.phone,
     super.email,
     super.isAdmin = false,
+    super.image,
   });
 
   UserModel copyWith({
@@ -22,6 +23,7 @@ class UserModel extends UserEntity {
     ValueGetter<String?>? phone,
     ValueGetter<String?>? email,
     bool? isAdmin,
+    ValueGetter<String?>? image,
   }) {
     return UserModel(
       id: id != null ? id() : this.id,
@@ -30,6 +32,7 @@ class UserModel extends UserEntity {
       phone: phone != null ? phone() : this.phone,
       email: email != null ? email() : this.email,
       isAdmin: isAdmin ?? this.isAdmin,
+      image: image != null ? image() : this.image,
     );
   }
 
@@ -42,6 +45,7 @@ class UserModel extends UserEntity {
       'phone': phone,
       'email': email,
       'isAdmin': isAdmin,
+      'image': image,
     };
   }
 
@@ -53,6 +57,7 @@ class UserModel extends UserEntity {
       phone: map['phone'],
       email: map['email'],
       isAdmin: map['isAdmin'] ?? false,
+      image: map['image'],
     );
   }
 
@@ -64,6 +69,6 @@ class UserModel extends UserEntity {
 
   @override
   String toString() {
-    return 'UserModel(id: $id, firstName: $firstName, lastName: $lastName, phone: $phone, email: $email, isAdmin: $isAdmin)';
+    return 'UserModel(id: $id, firstName: $firstName, lastName: $lastName, phone: $phone, email: $email, isAdmin: $isAdmin, image: $image)';
   }
 }

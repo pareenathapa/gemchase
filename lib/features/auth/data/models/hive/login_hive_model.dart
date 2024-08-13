@@ -5,8 +5,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 
-
-
 part 'login_hive_model.g.dart';
 
 final loginHiveModelProvider = Provider(
@@ -44,14 +42,14 @@ class LoginHiveModel {
   Map<String, dynamic> toMap() {
     return {
       'token': token,
-      'user': user?.toMap(),
+      'data': user?.toMap(),
     };
   }
 
   factory LoginHiveModel.fromMap(Map<String, dynamic> map) {
     return LoginHiveModel(
       token: map['token'],
-      user: map['user'] != null ? UserHiveModel.fromMap(map['user']) : null,
+      user: map['data'] != null ? UserHiveModel.fromMap(map['data']) : null,
     );
   }
 

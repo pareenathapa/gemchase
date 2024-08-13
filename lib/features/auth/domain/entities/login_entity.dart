@@ -1,8 +1,8 @@
+import 'package:gemchase_clean_arch/core/common/exports.dart';
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
-import 'package:gemchase_clean_arch/core/common/exports.dart';
 import 'package:gemchase_clean_arch/features/auth/domain/entities/user_entity.dart';
 
 class LoginEntity extends Equatable {
@@ -20,14 +20,14 @@ class LoginEntity extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'token': token,
-      'user': user?.toMap(),
+      'data': user?.toMap(),
     };
   }
 
   factory LoginEntity.fromMap(Map<String, dynamic> map) {
     return LoginEntity(
       token: map['token'],
-      user: map['user'] != null ? UserEntity.fromMap(map['user']) : null,
+      user: map['data'] != null ? UserEntity.fromMap(map['data']) : null,
     );
   }
 

@@ -1,6 +1,8 @@
-import 'package:gemchase_clean_arch/core/common/exports.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:gemchase_clean_arch/core/common/exports.dart';
 
 class RegisterView extends ConsumerStatefulWidget {
   const RegisterView({super.key});
@@ -13,16 +15,30 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
   final _formKey = GlobalKey<FormState>();
   bool _isPasswordHidden = true;
   bool _isCPasswordHidden = true;
+
   final _fnameController = TextEditingController();
   final _lnameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
+  File? _selectedImage;
+
+  Future<void> _pickImage() async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _selectedImage = File(pickedFile.path);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: const Color(kBackground),
       body: SafeArea(
@@ -33,161 +49,98 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Image.asset(Assets.images.Logo, height: 150, width: 500),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: kHorizontalMargin),
-                  child: const Column(
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         "Register",
                         style: TextStyle(
-                            fontSize: 24,
-                            fontFamily: 'Times',
-                            fontWeight: FontWeight.w400,
-                            color: Colors.black),
+                          fontSize: 24,
+                          fontFamily: 'Times',
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                        ),
                       ),
                       Text(
                         "Create your account and experience the app.",
                         style: TextStyle(
-                            fontSize: 12,
-                            color: Color(0xFF454C53),
-                            fontWeight: FontWeight.w400),
+                          fontSize: 12,
+                          color: Color(0xFF454C53),
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ],
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(
-                      horizontal: kHorizontalMargin, vertical: kVerticalMargin),
+                GestureDetector(
+                  onTap: _pickImage,
+                  child: Center(
+                    child: CircleAvatar(
+                      radius: 60,
+                      backgroundImage: _selectedImage != null
+                          ? FileImage(_selectedImage!)
+                          : AssetImage(Assets.images.Logo) as ImageProvider,
+                      child: _selectedImage == null
+                          ? const Icon(
+                              Icons.camera_alt,
+                              size: 40,
+                              color: Colors.white,
+                            )
+                          : null,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 12,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('First Name',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w400)),
-                      TextFormField(
+                      _InputField(
+                        label: 'First Name',
                         controller: _fnameController,
-                        decoration: InputDecoration(
-                          hintText: "First Name",
-                          filled: true,
-                          fillColor: const Color(0x0fffffff),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your first name';
-                          }
-                          return null;
-                        },
+                        hintText: 'First Name',
                       ),
                       SizedBox(height: kHorizontalMargin),
-                      const Text('Last Name',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w400)),
-                      TextFormField(
+                      _InputField(
+                        label: 'Last Name',
                         controller: _lnameController,
-                        decoration: InputDecoration(
-                          hintText: "Last Name",
-                          filled: true,
-                          fillColor: const Color(0x0fffffff),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your last name';
-                          }
-                          return null;
-                        },
+                        hintText: 'Last Name',
                       ),
                       SizedBox(height: kHorizontalMargin),
-                      const Text('Email',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w400)),
-                      TextFormField(
+                      _InputField(
+                        label: 'Email',
                         controller: _emailController,
-                        decoration: InputDecoration(
-                          hintText: "someone@gmail.com",
-                          filled: true,
-                          fillColor: const Color(0x0fffffff),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your email';
-                          }
-                          if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                            return 'Please enter a valid email address';
-                          }
-                          return null;
-                        },
+                        hintText: 'someone@gmail.com',
+                        keyboardType: TextInputType.emailAddress,
+                        validator: _emailValidator,
                       ),
                       SizedBox(height: kHorizontalMargin),
-                      const Text('Password',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w400)),
-                      TextFormField(
+                      _PasswordInputField(
+                        label: 'Password',
                         controller: _passwordController,
-                        decoration: InputDecoration(
-                          hintText: "",
-                          filled: true,
-                          fillColor: const Color(0x0fffffff),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          suffixIcon: IconButton(
-                            icon: Icon(_isPasswordHidden
-                                ? Icons.visibility
-                                : Icons.visibility_off),
-                            onPressed: () {
-                              setState(() {
-                                _isPasswordHidden = !_isPasswordHidden;
-                              });
-                            },
-                          ),
-                        ),
-                        obscureText: _isPasswordHidden,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter your password';
-                          }
-                          return null;
+                        isHidden: _isPasswordHidden,
+                        onToggleVisibility: () {
+                          setState(() {
+                            _isPasswordHidden = !_isPasswordHidden;
+                          });
                         },
                       ),
                       SizedBox(height: kHorizontalMargin),
-                      const Text('Confirm Password',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w400)),
-                      TextFormField(
+                      _PasswordInputField(
+                        label: 'Confirm Password',
                         controller: _confirmPasswordController,
-                        decoration: InputDecoration(
-                          hintText: "",
-                          filled: true,
-                          fillColor: const Color.fromARGB(15, 111, 159, 192),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          suffixIcon: IconButton(
-                            icon: Icon(_isCPasswordHidden
-                                ? Icons.visibility
-                                : Icons.visibility_off),
-                            onPressed: () {
-                              setState(() {
-                                _isCPasswordHidden = !_isCPasswordHidden;
-                              });
-                            },
-                          ),
-                        ),
-                        obscureText: _isCPasswordHidden,
+                        isHidden: _isCPasswordHidden,
+                        onToggleVisibility: () {
+                          setState(() {
+                            _isCPasswordHidden = !_isCPasswordHidden;
+                          });
+                        },
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please confirm your password';
-                          }
                           if (value != _passwordController.text) {
                             return 'Passwords do not match';
                           }
@@ -196,8 +149,9 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                       ),
                       Center(
                         child: Container(
-                          margin:
-                              EdgeInsets.symmetric(vertical: kVerticalMargin),
+                          margin: const EdgeInsets.symmetric(
+                            vertical: 12,
+                          ),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               fixedSize: Size(width * 0.8, height * 0.07),
@@ -210,10 +164,11 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                             child: const Text(
                               "REGISTER",
                               style: TextStyle(
-                                  fontSize: 24,
-                                  fontFamily: 'Times',
-                                  fontWeight: FontWeight.w400,
-                                  color: Color(0xFFFCFCFC)),
+                                fontSize: 24,
+                                fontFamily: 'Times',
+                                fontWeight: FontWeight.w400,
+                                color: Color(0xFFFCFCFC),
+                              ),
                             ),
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
@@ -226,6 +181,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                                       password: _passwordController.text,
                                       confirmPassword:
                                           _confirmPasswordController.text,
+                                      image: _selectedImage,
                                       onError: (error) {
                                         showMySnackBar(
                                           message: error.toString(),
@@ -242,8 +198,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) =>
-                                                const LoginView(),
+                                            builder: (context) => const LoginView(),
                                           ),
                                         );
                                       },
@@ -253,40 +208,37 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                           ),
                         ),
                       ),
-                      Container(
-                        margin:
-                            EdgeInsets.symmetric(horizontal: kHorizontalMargin),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Center(
-                              child: Text(
-                                "Already have an account?",
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xFF0A0C0E)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "Already have an account?",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xFF0A0C0E),
+                            ),
+                          ),
+                          SizedBox(width: width * 0.02),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginView(),
+                                ),
+                              );
+                            },
+                            child: const Text(
+                              "Login",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                                color: Color.fromARGB(255, 77, 143, 177),
                               ),
                             ),
-                            SizedBox(width: width * 0.02),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const LoginView()));
-                              },
-                              child: const Text(
-                                "Login",
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500,
-                                    color: Color.fromARGB(255, 77, 143, 177)),
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -296,6 +248,110 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
           ),
         ),
       ),
+    );
+  }
+
+  static String? _emailValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your email';
+    }
+    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+      return 'Please enter a valid email address';
+    }
+    return null;
+  }
+}
+
+class _InputField extends StatelessWidget {
+  const _InputField({
+    required this.label,
+    required this.controller,
+    this.hintText,
+    this.validator,
+    this.keyboardType = TextInputType.text,
+  });
+
+  final String label;
+  final TextEditingController controller;
+  final String? hintText;
+  final String? Function(String?)? validator;
+  final TextInputType keyboardType;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+        ),
+        TextFormField(
+          controller: controller,
+          decoration: InputDecoration(
+            hintText: hintText,
+            filled: true,
+            fillColor: const Color(0x0fffffff),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+          validator: validator,
+          keyboardType: keyboardType,
+        ),
+      ],
+    );
+  }
+}
+
+class _PasswordInputField extends StatelessWidget {
+  const _PasswordInputField({
+    required this.label,
+    required this.controller,
+    required this.isHidden,
+    required this.onToggleVisibility,
+    this.validator,
+  });
+
+  final String label;
+  final TextEditingController controller;
+  final bool isHidden;
+  final VoidCallback onToggleVisibility;
+  final String? Function(String?)? validator;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+        ),
+        TextFormField(
+          controller: controller,
+          decoration: InputDecoration(
+            hintText: "",
+            filled: true,
+            fillColor: const Color(0x0fffffff),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            suffixIcon: IconButton(
+              icon: Icon(isHidden ? Icons.visibility : Icons.visibility_off),
+              onPressed: onToggleVisibility,
+            ),
+          ),
+          obscureText: isHidden,
+          validator: validator ??
+              (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your password';
+                }
+                return null;
+              },
+        ),
+      ],
     );
   }
 }

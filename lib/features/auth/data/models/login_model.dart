@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
 
-
 class LoginModel extends LoginEntity {
   const LoginModel({
     super.token,
@@ -24,14 +23,14 @@ class LoginModel extends LoginEntity {
   Map<String, dynamic> toMap() {
     return {
       'token': token,
-      'user': (user as UserModel).toMap(),
+      'data': (user as UserModel).toMap(),
     };
   }
 
   factory LoginModel.fromMap(Map<String, dynamic> map) {
     return LoginModel(
       token: map['token'],
-      user: map['user'] != null ? UserModel.fromMap(map['user']) : null,
+      user: map['data'] != null ? UserModel.fromMap(map['data']) : null,
     );
   }
 

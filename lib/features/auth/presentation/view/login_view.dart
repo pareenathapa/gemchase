@@ -16,6 +16,15 @@ class _LoginViewState extends ConsumerState<LoginView> {
   final _passwordController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      ref.read(authViewModelProvider.notifier).checkFingerPrint();
+    });
+  }
+
+  @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
@@ -26,6 +35,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+    final authState = ref.watch(authViewModelProvider);
     return Scaffold(
       backgroundColor: const Color(kBackground),
       body: SafeArea(
@@ -189,7 +199,8 @@ class _LoginViewState extends ConsumerState<LoginView> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => const Placeholder(),
+                                      builder: (context) =>
+                                          const BottomNavView(),
                                     ),
                                   );
                                 },
@@ -199,6 +210,50 @@ class _LoginViewState extends ConsumerState<LoginView> {
                     ),
                   ),
                 ),
+                if (authState.allowFingerPrintLogin)
+                  Center(
+                    child: Container(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: Size(width * 0.3, height * 0.05),
+                          backgroundColor:
+                              const Color.fromARGB(255, 77, 143, 177),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: Icon(
+                          Icons.fingerprint,
+                          color: Colors.white,
+                        ),
+                        onPressed: () async {
+                          await ref
+                              .read(authViewModelProvider.notifier)
+                              .allowFingerprintLogin(
+                                onError: (p0) => showMySnackBar(
+                                  message: p0,
+                                  color: Colors.red,
+                                ),
+                                onSuccess: () {
+                                  showMySnackBar(
+                                    message: "Login Success",
+                                    color: Colors.green,
+                                  );
+                                },
+                                navigation: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const BottomNavView(),
+                                    ),
+                                  );
+                                },
+                              );
+                        },
+                      ),
+                    ),
+                  ),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: kHorizontalMargin),
                   child: Row(
@@ -215,9 +270,11 @@ class _LoginViewState extends ConsumerState<LoginView> {
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const RegisterView()));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RegisterView(),
+                            ),
+                          );
                         },
                         child: const Text(
                           "Register",

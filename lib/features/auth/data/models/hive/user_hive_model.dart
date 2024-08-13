@@ -27,6 +27,8 @@ class UserHiveModel {
   final String? email;
   @HiveField(5)
   final bool isAdmin;
+  @HiveField(6)
+  final String? image;
 
   const UserHiveModel({
     this.id,
@@ -35,6 +37,7 @@ class UserHiveModel {
     this.phone,
     this.email,
     this.isAdmin = false,
+    this.image,
   });
 
   UserHiveModel.empty()
@@ -45,6 +48,7 @@ class UserHiveModel {
           phone: '',
           email: '',
           isAdmin: false,
+          image: '',
         );
 
   UserHiveModel copyWith({
@@ -54,6 +58,7 @@ class UserHiveModel {
     ValueGetter<String?>? phone,
     ValueGetter<String?>? email,
     bool? isAdmin,
+    ValueGetter<String?>? image,
   }) {
     return UserHiveModel(
       id: id != null ? id() : this.id,
@@ -62,6 +67,7 @@ class UserHiveModel {
       phone: phone != null ? phone() : this.phone,
       email: email != null ? email() : this.email,
       isAdmin: isAdmin ?? this.isAdmin,
+      image: image != null ? image() : this.image,
     );
   }
 
@@ -73,6 +79,7 @@ class UserHiveModel {
       'phone': phone,
       'email': email,
       'isAdmin': isAdmin,
+      'image': image,
     };
   }
 
@@ -84,6 +91,7 @@ class UserHiveModel {
       phone: map['phone'],
       email: map['email'],
       isAdmin: map['isAdmin'] ?? false,
+      image: map['image'],
     );
   }
 
@@ -94,7 +102,7 @@ class UserHiveModel {
 
   @override
   String toString() {
-    return 'UserHiveModel(id: $id, firstName: $firstName, lastName: $lastName, phone: $phone, email: $email, isAdmin: $isAdmin)';
+    return 'UserHiveModel(id: $id, firstName: $firstName, lastName: $lastName, phone: $phone, email: $email, isAdmin: $isAdmin, image: $image)';
   }
 
   @override
