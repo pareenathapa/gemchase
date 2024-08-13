@@ -1,7 +1,6 @@
 import 'package:gemchase_clean_arch/core/common/exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gemchase_clean_arch/features/home/presentation/view/home_base_view.dart';
 
 class SplashView extends ConsumerStatefulWidget {
   const SplashView({super.key});
@@ -42,11 +41,8 @@ class _SplashViewState extends ConsumerState<SplashView> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => state.isAdmin
-                  ? const Placeholder(
-                      color: Colors.red,
-                    )
-                  : const HomeBaseView(),
+              builder: (context) =>
+                  state.isAdmin ? const BottomNavView() : const BottomNavView(),
             ),
           );
         }

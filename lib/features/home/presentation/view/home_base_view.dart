@@ -1,11 +1,12 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gemchase_clean_arch/app/constants/api_endpoint.dart';
 import 'package:gemchase_clean_arch/features/auth/presentation/view_model/auth_view_model.dart';
 import 'package:gemchase_clean_arch/features/jewelry/domain/entities/jewelry_entity.dart';
-import 'package:gemchase_clean_arch/features/jewelry/presentation/view_model/jewelry_cubit.dart';
+import 'package:gemchase_clean_arch/features/jewelry/presentation/view/jewelry_detail_view.dart';
+import 'package:gemchase_clean_arch/features/jewelry/presentation/view_model/jewelry_view_model.dart';
+import 'package:gemchase_clean_arch/features/profile/presentation/profile_view.dart';
 import '../../../../core/common/widgets/app_text_field.dart';
 
 class HomeBaseView extends ConsumerStatefulWidget {
@@ -19,32 +20,12 @@ class _HomeBaseViewState extends ConsumerState<HomeBaseView> {
   final FocusNode searchFocusNode = FocusNode();
   final TextEditingController searchTextEditingController =
       TextEditingController();
-  // String selectedCategory = 'All';
-  // String username = 'JohnDoe';
 
-  // List<Product> products = [
-  //   Product(
-  //       name: 'Silver Ring',
-  //       image: 'assets/images/1719673926019-Silver ring.png',
-  //       category: 'Jewelry'),
-  //   Product(
-  //       name: 'Silver Bangles',
-  //       image: 'assets/images/1719674315362-Silver Bangles.png',
-  //       category: 'Jewelry'),
-  //   // Add more products here
-  // ];
-
-  // List<String> categories = ['All', 'Jewelry', 'Watches', 'Accessories'];
-
-  // List<Product> get filteredProducts {
-  //   if (selectedCategory == 'All') {
-  //     return products;
-  //   } else {
-  //     return products
-  //         .where((product) => product.category == selectedCategory)
-  //         .toList();
-  //   }
-  // }
+  final List<Widget> pages = [
+    const HomeBaseView(),
+    const Placeholder(),
+    const ProfileView(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -59,8 +40,6 @@ class _HomeBaseViewState extends ConsumerState<HomeBaseView> {
 
     final filteredProducts = ref.watch(jewelryViewModelProvider).searchResults;
 
-    log('filteredProducts: $filteredProducts');
-
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: const Color(0xffe8e9eb),
@@ -69,8 +48,6 @@ class _HomeBaseViewState extends ConsumerState<HomeBaseView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            HomeTopSection(username: username),
-            16.verticalSpace,
             AppTextField(
               labelText: 'Search',
               controller: searchTextEditingController,
@@ -121,14 +98,6 @@ class _HomeBaseViewState extends ConsumerState<HomeBaseView> {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart), label: 'Cart'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
       ),
     );
   }
@@ -222,17 +191,27 @@ class ProductGridView extends StatelessWidget {
       itemCount: products.length,
       itemBuilder: (context, index) {
         final product = products[index];
-        return Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(22.r),
-            color: Colors.white,
-          ),
-          child: Column(
-            children: [
-              Image.asset(product.jewelryImage!, fit: BoxFit.cover),
-              SizedBox(height: 10.h),
-              Text(product.jewelryName!),
-            ],
+        return GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => JewelryDetailView(jewelry: product),
+              ),
+            );
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(22.r),
+              color: Colors.white,
+            ),
+            child: Column(
+              children: [
+                Image.network("${ApiEndpoints.url}/${product.jewelryImage!}",
+                    fit: BoxFit.cover),
+                SizedBox(height: 10.h),
+                Text(product.jewelryName!),
+              ],
+            ),
           ),
         );
       },
