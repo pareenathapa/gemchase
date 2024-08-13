@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:dartz/dartz.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
@@ -42,9 +39,11 @@ class JewelryState {
       allJewelry: null,
       categories: const [
         'All',
-        'Jewelry',
-        'Watches',
-        'Accessories',
+        'Earings',
+        'Bangles',
+        'Nose Ring',
+        'Necklace',
+        'Rings',
       ],
       selectedJewelry: null,
       selectedCategory: "All",

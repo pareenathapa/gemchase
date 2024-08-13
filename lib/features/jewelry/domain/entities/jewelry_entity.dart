@@ -46,7 +46,7 @@ class JewelryEntity extends Equatable {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      '_id': id,
       'jewelryName': jewelryName,
       'jewelryPrice': jewelryPrice,
       'jewelryDescription': jewelryDescription,
@@ -58,7 +58,7 @@ class JewelryEntity extends Equatable {
 
   factory JewelryEntity.fromMap(Map<String, dynamic> map) {
     return JewelryEntity(
-      id: map['id'],
+      id: map['_id'],
       jewelryName: map['jewelryName'],
       jewelryPrice: double.parse("${map['jewelryPrice'] ?? 0.0}"),
       jewelryDescription: map['jewelryDescription'],

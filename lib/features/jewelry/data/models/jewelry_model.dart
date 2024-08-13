@@ -14,6 +14,7 @@ class JewelryModel extends JewelryEntity {
     super.createdAt,
   });
 
+  @override
   JewelryModel copyWith({
     ValueGetter<String?>? id,
     ValueGetter<String?>? jewelryName,
@@ -37,9 +38,10 @@ class JewelryModel extends JewelryEntity {
     );
   }
 
+  @override
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      '_id': id,
       'jewelryName': jewelryName,
       'jewelryPrice': jewelryPrice,
       'jewelryDescription': jewelryDescription,
@@ -51,7 +53,7 @@ class JewelryModel extends JewelryEntity {
 
   factory JewelryModel.fromMap(Map<String, dynamic> map) {
     return JewelryModel(
-      id: map['id'],
+      id: map['_id'],
       jewelryName: map['jewelryName'],
       jewelryPrice: double.parse("${map['jewelryPrice'] ?? 0.0}"),
       jewelryDescription: map['jewelryDescription'],
@@ -61,6 +63,7 @@ class JewelryModel extends JewelryEntity {
     );
   }
 
+  @override
   String toJson() => json.encode(toMap());
 
   factory JewelryModel.fromJson(String source) =>

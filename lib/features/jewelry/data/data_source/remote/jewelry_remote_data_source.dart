@@ -3,7 +3,6 @@ import 'package:gemchase_clean_arch/core/common/exports.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gemchase_clean_arch/features/jewelry/data/models/jewelry_model.dart';
 
 final jewelryRemoteDataSourceProvider = Provider(
   (ref) => JewelryRemoteDataSource(
@@ -25,7 +24,7 @@ class JewelryRemoteDataSource {
       );
       if (response.statusCode == 200) {
         return Right(
-          (response.data as List)
+          (response.data['data'] as List)
               .map((e) => JewelryModel.fromMap(e))
               .toList(),
         );
