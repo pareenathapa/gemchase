@@ -1,4 +1,3 @@
-import 'package:gemchase_clean_arch/core/common/exports.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gemchase_clean_arch/features/jewelry/domain/usecase/jewelry_usecase.dart';
 import 'package:gemchase_clean_arch/features/jewelry/presentation/view_model/jewelry_state.dart';

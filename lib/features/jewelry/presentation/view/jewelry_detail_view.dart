@@ -40,25 +40,38 @@ class _JewelryDetailViewState extends ConsumerState<JewelryDetailView> {
                 const SizedBox(height: 16),
                 Text(
                   widget.jewelry.jewelryName ?? 'Jewelry Name',
-                  style: Theme.of(context).textTheme.headline5,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   '\Rs. ${widget.jewelry.jewelryPrice?.toStringAsFixed(2) ?? 'Price'}',
-                  style: Theme.of(context).textTheme.headline6?.copyWith(
-                        color: Colors.green,
-                      ),
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                     color: Colors.green,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 Text(
                   'Category: ${widget.jewelry.jewelryCategory ?? 'Category'}',
-                  style: Theme.of(context).textTheme.subtitle1,
+                  style:  TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    //  color: Colors.green,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 Text(
                   widget.jewelry.jewelryDescription ??
                       'Description not available',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    //  color: Colors.green,
+                  )
                 ),
               ],
             ),

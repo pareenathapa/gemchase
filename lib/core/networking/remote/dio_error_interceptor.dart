@@ -1,6 +1,24 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gemchase_clean_arch/core/common/hive/hive_service/setting_hive_service.dart';
 
 class DioErrorInterceptor extends Interceptor {
+  final SettingsHiveService _settingsHiveService = SettingsHiveService();
+
+  @override
+  void onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
+    // Retrieve the token from the settings hive service
+    final settings = await _settingsHiveService.getSettings();
+
+    if (settings.user?.token != null) {
+      // Add the token to the headers if it exists
+      options.headers['Authorization'] = 'Bearer ${settings.user!.token}';
+    }
+
+    super.onRequest(options, handler);
+  }
+
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     if (err.response != null) {
