@@ -1,4 +1,3 @@
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gemchase_clean_arch/features/jewelry/domain/usecase/jewelry_usecase.dart';
 import 'package:gemchase_clean_arch/features/jewelry/presentation/view_model/jewelry_state.dart';
@@ -110,5 +109,126 @@ class JewelryViewModel extends StateNotifier<JewelryState> {
         searchResults: [],
       );
     }
+  }
+
+  Future<void> delete({
+    void Function(String)? onError,
+    void Function()? onSuccess,
+    void Function()? navigation,
+    required String id,
+  }) async {
+    state = state.copyWith(
+      isLoading: true,
+      error: () => null,
+      isSuccess: false,
+    );
+    final result = await jewelryUseCase.delete(id);
+    result.fold(
+      (failure) {
+        state = state.copyWith(
+          isLoading: false,
+          error: () => failure,
+          isSuccess: false,
+        );
+        onError?.call(failure.error);
+      },
+      (_) {
+        state = state.copyWith(
+          isLoading: false,
+          isSuccess: true,
+          error: () => null,
+        );
+        onSuccess?.call();
+        navigation?.call();
+      },
+    );
+  }
+
+  Future<void> create({
+    void Function(String)? onError,
+    void Function()? onSuccess,
+    void Function()? navigation,
+    required String name,
+    required String description,
+    required String price,
+    required String image,
+    required String category,
+  }) async {
+    state = state.copyWith(
+      isLoading: true,
+      error: () => null,
+      isSuccess: false,
+    );
+    final result = await jewelryUseCase.create(
+      name: name,
+      description: description,
+      price: price,
+      image: image,
+      category: category,
+    );
+    result.fold(
+      (failure) {
+        state = state.copyWith(
+          isLoading: false,
+          error: () => failure,
+          isSuccess: false,
+        );
+        onError?.call(failure.error);
+      },
+      (_) {
+        state = state.copyWith(
+          isLoading: false,
+          isSuccess: true,
+          error: () => null,
+        );
+        onSuccess?.call();
+        navigation?.call();
+      },
+    );
+  }
+
+  Future<void> update({
+    void Function(String)? onError,
+    void Function()? onSuccess,
+    void Function()? navigation,
+    required String id,
+    required String name,
+    required String description,
+    required String price,
+    required String image,
+    required String category,
+  }) async {
+    state = state.copyWith(
+      isLoading: true,
+      error: () => null,
+      isSuccess: false,
+    );
+    final result = await jewelryUseCase.update(
+      id: id,
+      name: name,
+      description: description,
+      price: price,
+      image: image,
+      category: category,
+    );
+    result.fold(
+      (failure) {
+        state = state.copyWith(
+          isLoading: false,
+          error: () => failure,
+          isSuccess: false,
+        );
+        onError?.call(failure.error);
+      },
+      (_) {
+        state = state.copyWith(
+          isLoading: false,
+          isSuccess: true,
+          error: () => null,
+        );
+        onSuccess?.call();
+        navigation?.call();
+      },
+    );
   }
 }

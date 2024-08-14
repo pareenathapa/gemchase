@@ -1,6 +1,7 @@
 import 'package:gemchase_clean_arch/core/common/exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gemchase_clean_arch/features/admin/presentation/view/admin_view.dart';
 
 class SplashView extends ConsumerStatefulWidget {
   const SplashView({super.key});
@@ -20,6 +21,7 @@ class _SplashViewState extends ConsumerState<SplashView> {
 
   void _navigateToHome() {
     final authViewModel = ref.read(authViewModelProvider.notifier);
+    ref.read(authViewModelProvider.notifier).checkFingerPrint();
     authViewModel.getSavedUser(
       onError: (error) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -42,7 +44,7 @@ class _SplashViewState extends ConsumerState<SplashView> {
             context,
             MaterialPageRoute(
               builder: (context) =>
-                  state.isAdmin ? const BottomNavView() : const BottomNavView(),
+                  state.isAdmin ? AdminDashboard() : const BottomNavView(),
             ),
           );
         }

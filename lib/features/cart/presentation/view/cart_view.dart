@@ -4,6 +4,7 @@ import 'package:gemchase_clean_arch/app/constants/api_endpoint.dart';
 import 'package:gemchase_clean_arch/core/common/exports.dart';
 import 'package:gemchase_clean_arch/features/cart/presentation/view_model/cart_view_model.dart';
 import 'package:gemchase_clean_arch/features/order/presentation/view_model/order_view_model.dart';
+import 'package:khalti/khalti.dart';
 
 class CartView extends ConsumerStatefulWidget {
   const CartView({super.key});
@@ -84,6 +85,39 @@ class _CartViewState extends ConsumerState<CartView> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () async {
+                      final initiationModel =
+                          await Khalti.service.initiatePayment(
+                        request: PaymentInitiationRequestModel(
+                          amount: 1000,
+                          productIdentity: 'mac-mini',
+                          productName: 'Apple Mac Mini',
+                          additionalData: {
+                            'vendor': 'Gemchase',
+                            'manufacturer': 'Gemchase',
+                          },
+                          mobile: '',
+                          transactionPin: '',
+                        ),
+                      );
+
+                      final otpCode = await _showOTPSentDialog();
+
+                      if (otpCode != null) {
+                        try {
+                          final model = await Khalti.service.confirmPayment(
+                            request: PaymentConfirmationRequestModel(
+                              confirmationCode: otpCode,
+                              token: initiationModel.token,
+                              transactionPin: "",
+                            ),
+                          );
+
+                          debugPrint(model.toString());
+                        } catch (e) {
+                          showMySnackBar(message: e.toString());
+                        }
+                      }
+
                       for (var element in cartItems) {
                         await ref
                             .read(orderViewModelProvider.notifier)
@@ -104,6 +138,31 @@ class _CartViewState extends ConsumerState<CartView> {
           ),
         ],
       ),
+    );
+  }
+
+  Future<String?> _showOTPSentDialog() {
+    return showDialog<String>(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        String? otp;
+        return AlertDialog(
+          title: const Text('OTP Sent!'),
+          content: TextField(
+            decoration: const InputDecoration(
+              label: Text('OTP Code'),
+            ),
+            onChanged: (v) => otp = v,
+          ),
+          actions: [
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () => Navigator.pop(context, otp),
+            )
+          ],
+        );
+      },
     );
   }
 }

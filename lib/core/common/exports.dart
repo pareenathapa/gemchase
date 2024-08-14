@@ -43,7 +43,6 @@ export 'package:gemchase_clean_arch/features/home/presentation/view/home_base_vi
 export 'package:gemchase_clean_arch/features/jewelry/data/data_source/remote/jewelry_remote_data_source.dart';
 export 'package:gemchase_clean_arch/features/jewelry/data/models/jewelry_model.dart';
 export 'package:gemchase_clean_arch/features/jewelry/data/repository/jewelry_repository_impl.dart';
-export 'package:gemchase_clean_arch/features/jewelry/di/jewelry_di.dart';
 export 'package:gemchase_clean_arch/features/jewelry/domain/entities/jewelry_entity.dart';
 export 'package:gemchase_clean_arch/features/jewelry/domain/repository/jewelry_repository.dart';
 export 'package:gemchase_clean_arch/features/jewelry/domain/usecase/jewelry_usecase.dart';

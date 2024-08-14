@@ -49,7 +49,7 @@ class _OrderListPageState extends ConsumerState<OrderListPage> {
                         final orderDate = DateTime.parse(order.orderDate!);
                         return ListTile(
                           leading: Image.network(
-                            "${ApiEndpoints.url}/${order.jewelry!.jewelryImage!}",
+                            "${ApiEndpoints.url}/${order.jewelry?.jewelryImage ?? ""}",
                             width: 50,
                             height: 50,
                             fit: BoxFit.cover,
@@ -57,7 +57,7 @@ class _OrderListPageState extends ConsumerState<OrderListPage> {
                               return const Icon(Icons.error);
                             },
                           ),
-                          title: Text('${order.jewelry!.jewelryName!}'),
+                          title: Text('${order.jewelry?.jewelryName ?? ""}'),
                           subtitle: Text(
                               'Total: \Rs. ${order.totalPrice?.toStringAsFixed(2)}' +
                                   ' | Qty: x${order.quantity}'),

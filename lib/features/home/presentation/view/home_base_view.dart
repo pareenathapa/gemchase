@@ -172,7 +172,7 @@ class CategoryList extends StatelessWidget {
   }
 }
 
-class ProductGridView extends StatelessWidget {
+class ProductGridView extends ConsumerWidget {
   final List<JewelryEntity> products;
   final bool isTablet;
 
@@ -180,41 +180,97 @@ class ProductGridView extends StatelessWidget {
       {super.key, required this.products, required this.isTablet});
 
   @override
-  Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: isTablet ? 4 : 2,
-        mainAxisSpacing: 12.h,
-        crossAxisSpacing: 12.h,
-        childAspectRatio: 0.7,
-      ),
-      itemCount: products.length,
-      itemBuilder: (context, index) {
-        final product = products[index];
-        return GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => JewelryDetailView(jewelry: product),
-              ),
-            );
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(22.r),
-              color: Colors.white,
-            ),
-            child: Column(
-              children: [
-                Image.network("${ApiEndpoints.url}/${product.jewelryImage!}",
-                    fit: BoxFit.cover),
-                SizedBox(height: 10.h),
-                Text(product.jewelryName!),
-              ],
-            ),
-          ),
-        );
+  Widget build(BuildContext context, WidgetRef ref) {
+    return RefreshIndicator(
+      onRefresh: () async {
+        await ref.read(jewelryViewModelProvider.notifier).getAll();
       },
+      child: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: isTablet ? 4 : 2,
+          mainAxisSpacing: 12.h,
+          crossAxisSpacing: 12.h,
+          childAspectRatio: 0.75,
+        ),
+        itemCount: products.length,
+        itemBuilder: (context, index) {
+          final product = products[index];
+          return GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => JewelryDetailView(jewelry: product),
+                ),
+              );
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(22.r),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 2,
+                    blurRadius: 6,
+                    offset: Offset(0, 3), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(22.r),
+                    ),
+                    child: Image.network(
+                      "${ApiEndpoints.url}/${product.jewelryImage!}",
+                      fit: BoxFit.cover,
+                      height: isTablet ? 200.h : 150.h,
+                      width: double.infinity,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          'assets/images/Default Product Images.png',
+                          fit: BoxFit.cover,
+                          height: isTablet ? 200.h : 150.h,
+                          width: double.infinity,
+                        );
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(8.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          product.jewelryName!,
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: 4.h),
+                        Text(
+                          "\$${product.jewelryPrice!.toStringAsFixed(2)}",
+                          style: TextStyle(
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

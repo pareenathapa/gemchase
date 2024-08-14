@@ -1,6 +1,7 @@
 import 'package:gemchase_clean_arch/core/common/exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gemchase_clean_arch/features/admin/presentation/view/admin_view.dart';
 
 class LoginView extends ConsumerStatefulWidget {
   const LoginView({super.key});
@@ -18,10 +19,6 @@ class _LoginViewState extends ConsumerState<LoginView> {
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
-      ref.read(authViewModelProvider.notifier).checkFingerPrint();
-    });
   }
 
   @override
@@ -195,13 +192,14 @@ class _LoginViewState extends ConsumerState<LoginView> {
                                     color: Colors.green,
                                   );
                                 },
-                                navigation: () {
+                                // ! COMMENTED OUT FOR TESTING
+                                navigation: (isAdmin) {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          const BottomNavView(),
-                                    ),
+                                        builder: (context) => isAdmin
+                                            ? AdminDashboard()
+                                            : const BottomNavView()),
                                   );
                                 },
                               );

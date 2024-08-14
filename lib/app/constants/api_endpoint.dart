@@ -6,7 +6,9 @@ class ApiEndpoints {
 
   static const Duration connectionTimeout = Duration(seconds: 1000);
   static const Duration receiveTimeout = Duration(seconds: 1000);
+  // static const String url = "http://192.168.1.67:5000";
   static const String url = "http://10.0.2.2:5000";
+  // static const String baseUrl = "http://192.168.1.67:5000/api/";
   static const String baseUrl = "http://10.0.2.2:5000/api/";
 
   // ====================== Auth Routes ======================
@@ -17,6 +19,7 @@ class ApiEndpoints {
   static const String Image = "http://10.0.2.2:5000/jewelerys/";
   static const String getJewelry = "jewelry";
   static const String order = "order";
+  static const String wishlist = "wishlist";
   static const limitPage = 5;
 }
 

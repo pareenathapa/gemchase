@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gemchase_clean_arch/app/constants/api_endpoint.dart';
 import 'package:gemchase_clean_arch/core/common/exports.dart';
 import 'package:gemchase_clean_arch/features/cart/presentation/view_model/cart_view_model.dart';
+import 'package:gemchase_clean_arch/features/jewelry/domain/entities/jewelry_entity.dart';
+import 'package:gemchase_clean_arch/features/wishlist/presentation/cubit/wishlist_view_model.dart';
 
 class JewelryDetailView extends ConsumerStatefulWidget {
   final JewelryEntity jewelry;
 
-   JewelryDetailView({super.key, required this.jewelry});
+  const JewelryDetailView({super.key, required this.jewelry});
 
   @override
   ConsumerState<JewelryDetailView> createState() => _JewelryDetailViewState();
@@ -33,6 +36,14 @@ class _JewelryDetailViewState extends ConsumerState<JewelryDetailView> {
                       "${ApiEndpoints.url}/${widget.jewelry.jewelryImage!}",
                       height: 200,
                       fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Image.asset(
+                          'assets/images/Default Product Images.png',
+                          fit: BoxFit.cover,
+                          // height: isTablet ? 200.h : 150.h,
+                          width: double.infinity,
+                        );
+                      },
                     ),
                   ),
                 const SizedBox(height: 16),
@@ -52,7 +63,7 @@ class _JewelryDetailViewState extends ConsumerState<JewelryDetailView> {
                     color: Colors.green,
                   ),
                 ),
-                 SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Text(
                   'Category: ${widget.jewelry.jewelryCategory ?? 'Category'}',
                   style: TextStyle(
@@ -72,22 +83,45 @@ class _JewelryDetailViewState extends ConsumerState<JewelryDetailView> {
                     )),
               ],
             ),
-            SizedBox(
-  width: double.infinity,
-  child: ElevatedButton(
-    onPressed: () {
-      ref
-          .read(cartViewModelProvider.notifier)
-          .addToCart(widget.jewelry);
+            Row(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      ref
+                          .read(cartViewModelProvider.notifier)
+                          .addToCart(widget.jewelry);
 
-      showMySnackBar(
-        message: 'Added to Cart',
-      );
-    },
-    child: const Text('Add to Cart'),
-  ),
-),
-
+                      showMySnackBar(
+                        message: 'Added to Cart',
+                      );
+                    },
+                    child: const Text('Add to Cart'),
+                  ),
+                ),
+                // Add to Wishlist
+                IconButton(
+                  onPressed: () {
+                    ref.read(wishListViewModelProvider.notifier).addToWishlist(
+                          jewelryId: widget.jewelry.id ?? '',
+                          onError: (error) {
+                            showMySnackBar(
+                              message: error,
+                              color: Colors.red,
+                            );
+                          },
+                          onSuccess: () {
+                            showMySnackBar(
+                              message: 'Added to Wishlist',
+                            );
+                          },
+                        );
+                  },
+                  icon: const Icon(Icons.favorite_border),
+                ),
+              ],
+            ),
           ],
         ),
       ),

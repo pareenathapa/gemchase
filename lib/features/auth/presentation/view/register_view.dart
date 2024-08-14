@@ -194,6 +194,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                                           color: Colors.green,
                                         );
                                       },
+                                      // ! COMMENTED OUT FOR TESTING
                                       navigation: () {
                                         Navigator.push(
                                           context,

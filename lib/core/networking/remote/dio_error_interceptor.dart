@@ -11,10 +11,8 @@ class DioErrorInterceptor extends Interceptor {
     // Retrieve the token from the settings hive service
     final settings = await _settingsHiveService.getSettings();
 
-    if (settings.user?.token != null) {
-      // Add the token to the headers if it exists
-      options.headers['Authorization'] = 'Bearer ${settings.user!.token}';
-    }
+    // Add the token to the headers if it exists
+    options.headers['authorization'] = 'Bearer ${settings.user?.token}';
 
     super.onRequest(options, handler);
   }

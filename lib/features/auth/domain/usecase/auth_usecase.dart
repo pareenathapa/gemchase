@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:developer';
 
 import 'package:gemchase_clean_arch/core/common/exports.dart';
 import 'package:dartz/dartz.dart';
@@ -188,6 +189,19 @@ class AuthUseCase {
 
     if (isAuthorized) {
       final result = await _hiveService.getSettings();
+      if (result.fingerPrintUser == null) {
+        return Left(
+          Failure(
+            error: 'No fingerprint user found',
+          ),
+        );
+      } else {
+        await _hiveService.updateSettings(
+          result.copyWith(
+            user: () => result.fingerPrintUser,
+          ),
+        );
+      }
       return result.fingerPrintUser != null
           ? Right(
               LoginEntity.fromMap(result.fingerPrintUser!.toMap()),

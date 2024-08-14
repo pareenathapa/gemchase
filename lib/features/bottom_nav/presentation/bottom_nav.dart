@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gemchase_clean_arch/features/cart/presentation/view/cart_view.dart';
+import 'package:gemchase_clean_arch/features/wishlist/presentation/view/wishlist_view.dart';
 
 class BottomNavView extends ConsumerStatefulWidget {
   const BottomNavView({super.key});
@@ -19,6 +20,7 @@ class _BottomNavViewState extends ConsumerState<BottomNavView> {
   final List<Widget> _pages = <Widget>[
     const HomeBaseView(),
     CartView(),
+    WishlistView(),
     const ProfileView(),
   ];
 
@@ -41,6 +43,10 @@ class _BottomNavViewState extends ConsumerState<BottomNavView> {
       const BottomNavigationBarItem(
         icon: Icon(Icons.shopping_cart),
         label: "Cart",
+      ),
+      const BottomNavigationBarItem(
+        icon: Icon(Icons.favorite),
+        label: "Wishlist",
       ),
       const BottomNavigationBarItem(
         icon: Icon(Icons.person),

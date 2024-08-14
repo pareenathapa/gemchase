@@ -104,7 +104,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
   Future<void> login({
     void Function(String)? onError,
     void Function()? onSuccess,
-    void Function()? navigation,
+    void Function(bool)? navigation,
     required String email,
     required String password,
   }) async {
@@ -137,7 +137,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
           loginEntity: () => loginEntity,
         );
         onSuccess?.call();
-        navigation?.call();
+        navigation?.call(state.isAdmin);
       },
     );
   }
