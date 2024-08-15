@@ -1,7 +1,9 @@
-import 'package:gemchase_clean_arch/core/common/exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:gemchase_clean_arch/core/common/exports.dart';
 import 'package:gemchase_clean_arch/features/admin/presentation/view/admin_view.dart';
+// Add other necessary imports here
 
 class LoginView extends ConsumerStatefulWidget {
   const LoginView({super.key});
@@ -15,10 +17,20 @@ class _LoginViewState extends ConsumerState<LoginView> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
   @override
   void initState() {
     super.initState();
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('app_icon');
+    final InitializationSettings initializationSettings =
+        InitializationSettings(
+      android: initializationSettingsAndroid,
+      // Add iOS and other platform settings if needed
+    );
+    flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
   @override
@@ -28,11 +40,32 @@ class _LoginViewState extends ConsumerState<LoginView> {
     super.dispose();
   }
 
+  Future<void> _showLoginSuccessNotification() async {
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails(
+      'login_success_channel', // Channel ID
+      'Login Success', // Channel name
+      importance: Importance.max,
+      priority: Priority.high,
+      showWhen: false,
+    );
+    const NotificationDetails platformChannelSpecifics =
+        NotificationDetails(android: androidPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.show(
+      0, // Notification ID
+      'Login Success',
+      'You have successfully logged in.',
+      platformChannelSpecifics,
+      payload: 'item x',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     final authState = ref.watch(authViewModelProvider);
+
     return Scaffold(
       backgroundColor: const Color(kBackground),
       body: SafeArea(
@@ -191,8 +224,8 @@ class _LoginViewState extends ConsumerState<LoginView> {
                                     message: "Login Success",
                                     color: Colors.green,
                                   );
+                                  _showLoginSuccessNotification(); // Show local notification on success
                                 },
-                                // ! COMMENTED OUT FOR TESTING
                                 navigation: (isAdmin) {
                                   Navigator.push(
                                     context,
@@ -237,6 +270,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                                     message: "Login Success",
                                     color: Colors.green,
                                   );
+                                  _showLoginSuccessNotification(); // Show local notification on success
                                 },
                                 navigation: () {
                                   Navigator.push(

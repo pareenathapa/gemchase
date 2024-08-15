@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gemchase_clean_arch/app/constants/api_endpoint.dart';
 import 'package:gemchase_clean_arch/features/cart/presentation/view_model/cart_view_model.dart';
 import 'package:gemchase_clean_arch/features/wishlist/presentation/cubit/wishlist_view_model.dart';
 import 'package:gemchase_clean_arch/features/jewelry/domain/entities/jewelry_entity.dart';
@@ -38,7 +39,7 @@ class _WishlistViewState extends ConsumerState<WishlistView> {
                   child: ListTile(
                     contentPadding: const EdgeInsets.all(16),
                     leading: Image.network(
-                      product.jewelryImage ?? '',
+                      "${ApiEndpoints.url}/${product.jewelryImage ?? ''}",
                       fit: BoxFit.cover,
                       width: 60,
                       height: 60,
