@@ -5,6 +5,3 @@ class AppNavigator {
 
   static final navigatorKey = GlobalKey<NavigatorState>();
 }
-
-
-

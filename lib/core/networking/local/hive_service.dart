@@ -1,11 +1,8 @@
+import 'package:gemchase_clean_arch/core/common/exports.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 
 import 'package:path_provider/path_provider.dart';
-
-import '../../../app/constants/hive_table_constant.dart';
-import '../../../features/authentication/data/model/auth_hive_model.dart';
-
 
 final hiveServiceProvider = Provider((ref) => HiveService());
 
@@ -15,29 +12,33 @@ class HiveService {
     Hive.init(directory.path);
 
     // Register Adapters
-   
-   Hive.registerAdapter(AuthHiveModelAdapter());
+    Hive.registerAdapter(LoginHiveModelAdapter());
   }
 
-
-  Future<void> register(AuthHiveModel user) async {
-    var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.userBox);
-    await box.put(user.userId, user);
+  Future<void> saveUser(LoginHiveModel login) async {
+    var box = await Hive.openBox<LoginHiveModel>(HiveTableConstant.loginBox);
+    await box.put(0, login);
+    await box.put(1, login);
   }
 
-  // Future<List<AuthHiveModel>> getAllStudents() async {
-  //   var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.studentBox);
-  //   var students = box.values.toList();
-  //   box.close();
-  //   return students;
-  // }
-
-  //Login
-  Future<AuthHiveModel?> login(String email, String password) async {
-    var box = await Hive.openBox<AuthHiveModel>(HiveTableConstant.userBox);
-    var user = box.values.firstWhere((element) =>
-        element.email == email && element.password == password);
+  Future<LoginHiveModel?> getUser() async {
+    var box = await Hive.openBox<LoginHiveModel>(HiveTableConstant.loginBox);
+    var login = box.get(0);
     box.close();
-    return user;
+    return login;
+  }
+
+  Future<LoginHiveModel?> getFingerPrintUser() async {
+    var box = await Hive.openBox<LoginHiveModel>(HiveTableConstant.loginBox);
+    var login = box.get(0);
+    box.close();
+    return login;
+  }
+
+  // delete user
+  Future<void> deleteUser() async {
+    var box = await Hive.openBox<LoginHiveModel>(HiveTableConstant.loginBox);
+    await box.delete(0);
+    box.close();
   }
 }
