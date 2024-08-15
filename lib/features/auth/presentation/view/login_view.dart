@@ -227,12 +227,14 @@ class _LoginViewState extends ConsumerState<LoginView> {
                                   _showLoginSuccessNotification(); // Show local notification on success
                                 },
                                 navigation: (isAdmin) {
-                                  Navigator.push(
+                                  //!comment this for testing
+                                  Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => isAdmin
                                             ? AdminDashboard()
                                             : const BottomNavView()),
+                                            (route) => false,
                                   );
                                 },
                               );

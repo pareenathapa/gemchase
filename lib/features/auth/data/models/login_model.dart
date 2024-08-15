@@ -23,7 +23,7 @@ class LoginModel extends LoginEntity {
   Map<String, dynamic> toMap() {
     return {
       'token': token,
-      'data': (user as UserModel).toMap(),
+      'data':user!=null? (user as UserModel).toMap(): null,
     };
   }
 

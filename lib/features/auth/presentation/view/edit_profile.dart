@@ -75,7 +75,7 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
                           image: _selectedImage != null
                               ? FileImage(_selectedImage!)
                               : NetworkImage(
-                                  "${ApiEndpoints.url}/${ref.read(authViewModelProvider).loginEntity!.user!.image!}",
+                                  "${ApiEndpoints.url}/${ref.read(authViewModelProvider).loginEntity!.user!.image??""}",
                                 ) as ImageProvider,
                           fit: BoxFit.cover,
                         ),

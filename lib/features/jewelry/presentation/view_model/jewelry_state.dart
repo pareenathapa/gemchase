@@ -42,7 +42,7 @@ class JewelryState {
         'Earings',
         'Bangles',
         'Nose Ring',
-        'Necklace',
+        'Necklaces',
         'Rings',
       ],
       selectedJewelry: null,

@@ -195,14 +195,14 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                                         );
                                       },
                                       // ! COMMENTED OUT FOR TESTING
-                                      navigation: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => const LoginView(),
-                                          ),
-                                        );
-                                      },
+                                      // navigation: () {
+                                      //   Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //       builder: (context) => const LoginView(),
+                                      //     ),
+                                      //   );
+                                      // },
                                     );
                               }
                             },
